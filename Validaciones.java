@@ -44,4 +44,7 @@ public class Validaciones {
         } while (!entradaValida);
         return numero;
     }
+
+
+    public static 
 }
