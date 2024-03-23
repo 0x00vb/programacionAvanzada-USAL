@@ -1,22 +1,12 @@
 public class Prepaga {
-    private int id;
     private String nombre;
     private String[] planes;
     private double topeReintegro;
 
-    public Prepaga(int id, String nombre, String[] planes, double topeReintegro){
-        this.id = id;
+    public Prepaga( String nombre, String[] planes, double topeReintegro){
         this.nombre = nombre;
         this.planes = planes;
         this.topeReintegro = topeReintegro;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNombre() {

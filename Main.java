@@ -29,8 +29,16 @@ public class Main {
         //Ingreso datos estetica
         for(int i = 0; i < 10; i++){
             System.out.printf("(Sucursal %d)\n", i + 1);
-            System.out.println("Nombre de la filial: ");
-            String nombre = scanner.nextLine();
+            String nombre;
+            while(true){
+                System.out.println("Nombre de la filial: ");
+                nombre = scanner.nextLine();
+                if(Validaciones.buscarSucursal(sucursales, nombre) == null){
+                    break;
+                }else{
+                    System.out.println("Esta sucursal ya fue ingresada anteriormente!");
+                }
+            }
 
             System.out.println("Localidad: ");
             String localidad = scanner.nextLine();
@@ -43,8 +51,16 @@ public class Main {
 
         for(int i = 0; i < 15; i++){
             System.out.printf("(Prepaga %d)", i + 1);
-            System.out.println("Nombre: ");
-            String nombre = scanner.nextLine();
+            String nombre;
+            while(true){
+                System.out.println("Nombre: ");
+                nombre = scanner.nextLine();
+                if(Validaciones.buscarPrepaga(prepagas, nombre) == null){
+                    break;
+                }else{
+                    System.out.println("Esta prepaga ya fue cargada anteriormente!");
+                }
+            }
 
             System.out.println("Cantidad de planes: ");
             int cantPlanes = Validaciones.validarInt();
@@ -59,7 +75,7 @@ public class Main {
             System.out.println("Tope maximo de reintegro: ");
             int topeReintegro = Validaciones.validarInt();
 
-            prepagas[i] = new Prepaga(i, nombre, planes, topeReintegro);
+            prepagas[i] = new Prepaga(nombre, planes, topeReintegro);
         }
 
         System.out.println("Cantidad de Tratamientos ofrecidos: ");
@@ -85,6 +101,9 @@ public class Main {
                 tipoTratamiento = scanner.nextLine().toLowerCase().charAt(0);
             }while(tipoTratamiento != 'f' && tipoTratamiento != 'c' && tipoTratamiento != 's');
         }
+
+
+        // punto c
 
 
 

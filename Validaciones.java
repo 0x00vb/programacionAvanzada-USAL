@@ -46,5 +46,21 @@ public class Validaciones {
     }
 
 
-    public static 
+    public static Sucursal buscarSucursal(Sucursal[] listSucursales, String nombreSucursal){
+        for(Sucursal sucursal : listSucursales){
+            if(sucursal != null &&  sucursal.getNombre() == nombreSucursal){
+                return sucursal;
+            }
+        }
+        return null;
+    }
+    
+    public static Prepaga buscarPrepaga(Prepaga[] listaPrepagas, String nombrePrepaga){
+        for(Prepaga prepaga : listaPrepagas){
+            if(prepaga != null &&  prepaga.getNombre() == nombrePrepaga){
+                return prepaga;
+            }
+        }
+        return null;
+    }
 }
