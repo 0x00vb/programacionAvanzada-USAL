@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Calendar;
 
 public class Validaciones {
     public static int validarInt(){
@@ -62,5 +63,17 @@ public class Validaciones {
             }
         }
         return null;
+    }
+
+    public static Calendar validarFecha(){
+        System.out.println("Ingresar dia (01 / 31): ");
+
+        System.out.println("Ingresar Mes (1 / 12): ");
+
+        System.out.println("Ingresar año: ");
+
+
+
+        return Calendar.getInstance();
     }
 }

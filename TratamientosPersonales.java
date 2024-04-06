@@ -2,6 +2,8 @@ public class TratamientosPersonales {
     private Tratamiento[] tratamientos;
     private int cantidadTratamientos;
 
+    public TratamientosPersonales(){}
+
     public Tratamiento[] getTratamientos() {
         return tratamientos;
     }

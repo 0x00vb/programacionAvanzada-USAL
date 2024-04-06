@@ -80,6 +80,7 @@ public class Main {
 
         System.out.println("Cantidad de Tratamientos ofrecidos: ");
         int cantidadTratamientosOfrecidos = Validaciones.validarInt();
+        Tratamiento[] tratamientos = new Tratamiento[cantidadTratamientosOfrecidos]; 
         for(int i = 0; i < cantidadTratamientosOfrecidos; i++){
             System.out.printf("Tratamiento %d.", i + 1);
             System.out.println("Nombre: ");
@@ -100,12 +101,67 @@ public class Main {
                 System.out.println("f = facial, c = corporal, s = salud: ");
                 tipoTratamiento = scanner.nextLine().toLowerCase().charAt(0);
             }while(tipoTratamiento != 'f' && tipoTratamiento != 'c' && tipoTratamiento != 's');
+            
+            tratamientos[i] = new Tratamiento(nombre, precioSesion, inyectable, cantMaxSesiones, tipoTratamiento);
         }
-
 
         // punto c
 
+        System.out.println("[*] Informacion nomina clientes.");
+        System.out.println("Cantidad de Clientes: ");
+        int cantidadClientes = Validaciones.validarInt();
+        for(int i = 0; i < cantidadClientes; i++){
+            System.out.println("Nombre: ");
+            String nombre = scanner.nextLine();
 
+            System.out.println("Numero Dni: ");
+            int numeroDni = Validaciones.validarInt();
+
+            System.out.println("Fecha de Nacimiento");
+
+            System.out.println("Objetivo: ");
+            String objetivo = scanner.nextLine();
+
+            
+            System.out.println("Sucursales donde puede ser atendido: ");
+            for(int j = 0; j < sucursales.length; j++){
+
+            }
+            System.out.print("Cantidad de sucursales en las que quiere ser atendido: ");
+            int cantidadSucursalesCliente = Validaciones.validarInt();
+            Sucursal[] sucursalesCliente = new Sucursal[cantidadSucursalesCliente];
+
+            for(int j = 0; j < cantidadSucursalesCliente; j++){
+                System.out.printf("Sucursal %d: \n", j + 1);
+                String nombreSucursal = scanner.nextLine();
+
+                while (true) {
+                    if(Validaciones.buscarSucursal(sucursales, nombreSucursal) != null){
+                        if(Validaciones.buscarSucursal(sucursalesCliente, nombreSucursal) == null){
+                            sucursalesCliente[j] = Validaciones.buscarSucursal(sucursales, nombreSucursal);
+                            break;
+                        }else{
+                            System.out.println("Esa sucursal ya fue seleccionada! Intente de nuevo.");
+                        }
+                    }else{
+                        System.out.println("Esa sucursal no existe! Intente de nuevo.");
+                    }
+                }
+            }
+
+            System.out.println("Cantidad de tratamientos: ");
+            int cantidadTratamientos = Validaciones.validarInt();
+            for(int j = 0; j < cantidadTratamientos; j++){
+                
+            }
+
+            char formaPago;
+            do{
+                System.out.printf("Forma de pago: \ne. Efectivo. \nd. Tarjeta de debito. \nc. Tarjeta de credito");
+                formaPago = scanner.nextLine().toLowerCase().charAt(0);
+
+            }while(formaPago != 'e' && formaPago != 'd' && formaPago != 'c');
+        }
 
     }
 }

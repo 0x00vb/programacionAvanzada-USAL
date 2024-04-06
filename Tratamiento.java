@@ -5,6 +5,14 @@ public class Tratamiento {
     private int cantMaxSesiones;
     private char tipoTratamiento;
 
+    public Tratamiento(String nombre, double precio, boolean inyectable, int cantMaxSesiones, char tipoTratamiento){
+        this.nombre = nombre;
+        this.precio = precio;
+        this.inyectable = inyectable;
+        this.cantMaxSesiones = cantMaxSesiones;
+        this.tipoTratamiento = tipoTratamiento;
+    }
+
     public String getNombre() {
         return nombre;
     }

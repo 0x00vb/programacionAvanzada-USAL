@@ -7,16 +7,24 @@ abstract class Cliente {
     protected String objetivo;
     protected Calendar fechaInicio;
     protected Sucursal[] sucursales;
-    protected TratamientosPersonales[] tratamientos;
+    protected TratamientosPersonales[] tratamientos; // Composicion
     protected char formaPago;
 
     public Cliente(){
-        
+        for(int i = 0; i < 10; i++){
+            tratamientos[i] = new TratamientosPersonales();
+        }
     }   
 
     public Cliente(String nombre, int numeroDni, Calendar fechaNacimiento, String objetivo, Sucursal[] sucursales, char formaPago){
         this();
-
+        this.nombre = nombre;
+        this.numeroDni = numeroDni;
+        this.fechaNacimiento = fechaNacimiento;
+        this.objetivo = objetivo;
+        this.fechaInicio = Calendar.getInstance();
+        this.sucursales = sucursales;
+        this.formaPago = formaPago;
     }
 
     public String getNombre() {
