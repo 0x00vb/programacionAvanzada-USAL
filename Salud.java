@@ -1,13 +1,15 @@
 public class Salud extends TratamientosPersonales {
-    private boolean consultClinica;
-    private double valorAdicional;
+    private boolean consultaClinica;
+    private static double valorAdicional;
 
-    public boolean isConsultClinica() {
-        return consultClinica;
+    public Salud(){}
+
+    public boolean getConsultaClinica() {
+        return consultaClinica;
     }
 
-    public void setConsultClinica(boolean consultClinica) {
-        this.consultClinica = consultClinica;
+    public void setConsultaClinica(boolean consultaClinica) {
+        this.consultaClinica = consultaClinica;
     }
 
     public double getValorAdicional() {
@@ -15,14 +17,14 @@ public class Salud extends TratamientosPersonales {
     }
 
     public void setValorAdicional(double valorAdicional) {
-        this.valorAdicional = valorAdicional;
+        Salud.valorAdicional = valorAdicional;
     }
 
     @Override
     public double calcularCostoTratamiento() {
         double costoBase = super.calcularCostoTratamiento(); // Calling superclass method
         // Calculate additional cost based on whether consultation is required
-        double costoTotal = consultClinica ? (costoBase + valorAdicional) : costoBase;
+        double costoTotal = consultaClinica ? (costoBase + valorAdicional) : costoBase;
         return costoTotal;
     }
 }

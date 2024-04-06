@@ -7,12 +7,12 @@ abstract class Cliente {
     protected String objetivo;
     protected Calendar fechaInicio;
     protected Sucursal[] sucursales;
-    protected TratamientosPersonales[] tratamientos; // Composicion
+    protected TratamientosPersonales[] tratamientosPersonales; // Composicion
     protected char formaPago;
 
     public Cliente(){
         for(int i = 0; i < 10; i++){
-            tratamientos[i] = new TratamientosPersonales();
+            tratamientosPersonales[i] = new TratamientosPersonales();
         }
     }   
 
@@ -75,12 +75,13 @@ abstract class Cliente {
         this.sucursales = sucursales;
     }
 
-    public TratamientosPersonales[] getTratamientos() {
-        return tratamientos;
+    public TratamientosPersonales[] getTratamientosPersonales() {
+        return tratamientosPersonales;
     }
 
-    public void setTratamientos(TratamientosPersonales[] tratamientos) {
-        this.tratamientos = tratamientos;
+    public void setTratamientoPersonal(int posicion, Tratamiento tratamiento, int cantidaSesiones) {
+        tratamientosPersonales[posicion].setTratamiento(tratamiento);
+        tratamientosPersonales[posicion].setcantidadSesiones(cantidaSesiones);
     }
 
     public char getFormaPago() {

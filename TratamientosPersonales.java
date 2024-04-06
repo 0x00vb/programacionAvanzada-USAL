@@ -1,29 +1,27 @@
 public class TratamientosPersonales {
-    private Tratamiento[] tratamientos;
-    private int cantidadTratamientos;
+    private Tratamiento tratamiento;
+    private int cantidadSesiones;
 
     public TratamientosPersonales(){}
 
-    public Tratamiento[] getTratamientos() {
-        return tratamientos;
+    public Tratamiento getTratamiento() {
+        return tratamiento;
     }
 
-    public void setTratamientos(Tratamiento[] tratamientos) {
-        this.tratamientos = tratamientos;
+    public void setTratamiento(Tratamiento tratamiento) {
+        this.tratamiento = tratamiento;
     }
 
-    public int getCantidadTratamientos() {
-        return cantidadTratamientos;
+    public int getcantidadSesiones() {
+        return cantidadSesiones;
     }
 
-    public void setCantidadTratamientos(int cantidadTratamientos) {
-        this.cantidadTratamientos = cantidadTratamientos;
+    public void setcantidadSesiones(int cantidadSesiones) {
+        this.cantidadSesiones = cantidadSesiones;
     }
 
     public double calcularCostoTratamiento() {
-        // Implement your logic to calculate the total cost of treatments
-        // You may want to iterate over each treatment and sum up their costs
-        // This is just a placeholder implementation
+
         return 0.0;
     }
 }

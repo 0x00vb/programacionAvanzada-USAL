@@ -1,32 +1,32 @@
 import java.util.Calendar;
 
 public class ConPrepaga extends Cliente{
-    private Prepaga[] prepagas;
-    private double aumentoAfiliado;
+    private Prepaga prepaga;
+    private long numeroAfiliado;
 
     public ConPrepaga(
         String nombre, int numeroDni, Calendar fechaNacimiento, String objetivo,
-        Sucursal[] sucursales, char formaPago, Prepaga[] prepagas, double aumentoAfiliado
+        Sucursal[] sucursales, char formaPago, Prepaga prepaga, long numeroAfiliado
     ){
         super(nombre, numeroDni, fechaNacimiento, objetivo, sucursales, formaPago);
-        this.prepagas = prepagas;
-        this.aumentoAfiliado = aumentoAfiliado; 
+        this.prepaga = prepaga;
+        this.numeroAfiliado = numeroAfiliado; 
     }
 
-    public Prepaga[] getPrepagas() {
-        return prepagas;
+    public Prepaga getPrepaga() {
+        return prepaga;
     }
 
-    public void setPrepagas(Prepaga[] prepagas) {
-        this.prepagas = prepagas;
+    public void setPrepaga(Prepaga prepaga) {
+        this.prepaga = prepaga;
     }
 
-    public double getAumentoAfiliado() {
-        return aumentoAfiliado;
+    public long getnumeroAfiliado() {
+        return numeroAfiliado;
     }
 
-    public void setAumentoAfiliado(double aumentoAfiliado) {
-        this.aumentoAfiliado = aumentoAfiliado;
+    public void setnumeroAfiliado(long numeroAfiliado) {
+        this.numeroAfiliado = numeroAfiliado;
     }
 
     @Override
@@ -34,6 +34,6 @@ public class ConPrepaga extends Cliente{
         // Implement the abstract method for calculating the cost
         // This method will be specific to the ConPrepaga class
         // You can use the attributes of the class to calculate the cost
-        return 0; // Placeholder, replace with actual logic
+        return 0.0; // Placeholder, replace with actual logic
     }
 }

@@ -1,14 +1,13 @@
 import java.util.Calendar;
 
 public class Particular extends Cliente{
-    private double descuento;
+    private static double descuento;
 
     public Particular(
         String nombre, int numeroDni, Calendar fechaNacimiento, String objetivo,
-        Sucursal[] sucursales, char formaPago, double descuento
+        Sucursal[] sucursales, char formaPago
         ){
-        super(nombre, numeroDni, fechaNacimiento, objetivo, sucursales, formaPago);
-            
+        super(nombre, numeroDni, fechaNacimiento, objetivo, sucursales, formaPago); 
     }
 
     public double getDescuento(){
@@ -16,7 +15,7 @@ public class Particular extends Cliente{
     }
 
     public void setDescuento(double descuento){
-        this.descuento = descuento;
+        Particular.descuento = descuento;
     }
 
     public double calcularCosto(){
