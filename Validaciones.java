@@ -65,15 +65,32 @@ public class Validaciones {
         return null;
     }
 
-    public static Calendar validarFecha(){
-        System.out.println("Ingresar dia (01 / 31): ");
+    public static Calendar validarFecha() {
+        Scanner scanner = new Scanner(System.in);
+        int year, month, day;
+    
+        System.out.println("Ingrese el año: ");
+        year = validarIntConLimites(scanner, 0, 2024);
+    
+        System.out.println("Ingrese el mes (1-12): ");
+        month = validarIntConLimites(scanner, 1, 12);
+    
+        System.out.println("Ingrese el día: ");
+        day = validarIntConLimites(scanner, 1, 31);
+    
+        Calendar fecha = Calendar.getInstance();
+        fecha.set(year, month - 1, day); // Adjust month value for Calendar's zero-based months
+        return fecha;
+    }
 
-        System.out.println("Ingresar Mes (1 / 12): ");
-
-        System.out.println("Ingresar año: ");
-
-
-
-        return Calendar.getInstance();
+    private static int validarIntConLimites(Scanner scanner, int min, int max) {
+        int input;
+        do {
+            input = validarInt();
+            if (input < min || input > max) {
+                System.out.println("El valor debe estar entre " + min + " y " + max + ". Intente de nuevo.");
+            }
+        } while (input < min || input > max);
+        return input;
     }
 }
