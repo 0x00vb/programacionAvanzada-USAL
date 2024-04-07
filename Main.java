@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Calendar;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -277,11 +278,12 @@ public class Main {
                 }
             }
             // Mostrar precio actualizado
+            System.out.printf("El precio acutalizado es: %f", clienteAModificar.calcularCosto());
         }
 
         // Punto e
 
-        // Punto f
+        // Punto f      
 
         // Punto g
 
@@ -292,8 +294,26 @@ public class Main {
         // Punto j
 
         // Punto k
+        Random random = new Random();
+        // Generar un número aleatorio de dos dígitos entre 01 y 99
+        int numeroAleatorio = random.nextInt(99) + 1; // Genera un número entre 1 y 99
+        Calendar fechaActual = Calendar.getInstance();
+        int contadorClientes = 0;
+        for(Cliente cliente : clientes){
+            Calendar fechaNacimiento = cliente.getFechaNacimiento();
+            int edad = fechaActual.get(Calendar.YEAR) - fechaNacimiento.get(Calendar.YEAR);        
+            // Ajustar la edad si aún no ha pasado el cumpleaños este año
+            if (fechaActual.get(Calendar.DAY_OF_YEAR) < fechaNacimiento.get(Calendar.DAY_OF_YEAR)) {
+                edad--;
+            }
 
+            boolean requiereConsultaMedica = false;
+            for(TratamientosPersonales tratamientoP : cliente.getTratamientosPersonales()){
+                requiereConsultaMedica = ((Salud)tratamientoP).getConsultaClinica() && true;
+            }
 
-
+            if(edad > numeroAleatorio && requiereConsultaMedica){contadorClientes++;}
+        }
+        System.out.printf("%d clientes cumplen con las condiciones dadas en el punto k.", contadorClientes);
     }
 }
