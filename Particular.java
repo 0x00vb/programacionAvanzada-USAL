@@ -1,25 +1,33 @@
 import java.util.Calendar;
 
 public class Particular extends Cliente{
-    private static double descuento;
+    private double porcentajeDescuento; //Es un porcentaje.
 
     public Particular(
         String nombre, int numeroDni, Calendar fechaNacimiento, String objetivo,
-        Sucursal[] sucursales, char formaPago
+        Sucursal[] sucursales, char formaPago, double porcentajeDescuento
         ){
         super(nombre, numeroDni, fechaNacimiento, objetivo, sucursales, formaPago); 
+        this.porcentajeDescuento = porcentajeDescuento;
     }
 
-    public double getDescuento(){
-        return descuento;
+    public double getPorcentajeDescuento(){
+        return porcentajeDescuento;
     }
 
-    public void setDescuento(double descuento){
-        Particular.descuento = descuento;
+    public void setPorcentajeDescuento(double porcentajeDescuento){
+        this.porcentajeDescuento = porcentajeDescuento;
     }
 
     public double calcularCosto(){
-
-        return 0;
+        double costoFinal = 0.0d;
+        for(TratamientosPersonales tratamientoP : this.getTratamientosPersonales()){
+            costoFinal += tratamientoP.calcularCostoTratamiento();
+        }
+        if(this.formaPago == 'e'){
+            porcentajeDescuento += porcentajeDescuento * 0.05; //porcentajeDescuento es incrementado un 5%78
+        }
+        costoFinal -= costoFinal * porcentajeDescuento;
+        return costoFinal;
     }
 }

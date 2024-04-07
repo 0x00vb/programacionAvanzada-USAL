@@ -31,9 +31,11 @@ public class ConPrepaga extends Cliente{
 
     @Override
     public double calcularCosto() {
-        // Implement the abstract method for calculating the cost
-        // This method will be specific to the ConPrepaga class
-        // You can use the attributes of the class to calculate the cost
-        return 0.0; // Placeholder, replace with actual logic
+        double costoFinal = 0.0d;
+        for(TratamientosPersonales tratamientoP : this.getTratamientosPersonales()){
+            costoFinal += tratamientoP.calcularCostoTratamiento();
+        }
+        costoFinal -= prepaga.getTopeReintegro();
+        return costoFinal;
     }
 }

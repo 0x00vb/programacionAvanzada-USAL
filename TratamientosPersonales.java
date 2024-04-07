@@ -1,6 +1,6 @@
 public class TratamientosPersonales {
-    private Tratamiento tratamiento;
-    private int cantidadSesiones;
+    protected Tratamiento tratamiento;
+    protected int cantidadSesiones;
 
     public TratamientosPersonales(){}
 
@@ -21,7 +21,7 @@ public class TratamientosPersonales {
     }
 
     public double calcularCostoTratamiento() {
-
-        return 0.0;
+        double costoTotal = tratamiento.getPrecio() * cantidadSesiones;
+        return costoTotal;
     }
 }

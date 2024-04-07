@@ -153,7 +153,6 @@ public class Main {
             do{
                 System.out.printf("Forma de pago: \ne. Efectivo. \nd. Tarjeta de debito. \nc. Tarjeta de credit\n");
                 formaPago = scanner.nextLine().toLowerCase().charAt(0);
-                
             }while(formaPago != 'e' && formaPago != 'd' && formaPago != 'c');
             
             System.out.println("Prepagas con las que opera el centro: ");
@@ -186,7 +185,9 @@ public class Main {
 
                 clientes[i] = new ConPrepaga(nombreCliente, numeroDni, fechaNacimiento, objetivo, sucursalesCliente, formaPago, prepagaCliente, numeroAfiliado);
             }else{
-                clientes[i] = new Particular(nombreCliente, numeroDni, fechaNacimiento, objetivo, sucursalesCliente, formaPago);
+                System.out.println("Se registrara al Cliente como particular. Ingrese porcentaje de descuento. (Si no tiene ingrese 0): ");
+                double porcentajeDescuento = Validaciones.validarDouble();
+                clientes[i] = new Particular(nombreCliente, numeroDni, fechaNacimiento, objetivo, sucursalesCliente, formaPago, porcentajeDescuento);
             }
 
             System.out.println("Cantidad de tratamientos: ");

@@ -22,9 +22,12 @@ public class Salud extends TratamientosPersonales {
 
     @Override
     public double calcularCostoTratamiento() {
-        double costoBase = super.calcularCostoTratamiento(); // Calling superclass method
-        // Calculate additional cost based on whether consultation is required
-        double costoTotal = consultaClinica ? (costoBase + valorAdicional) : costoBase;
+        double costoTotal;
+        if(consultaClinica){
+            costoTotal = (super.getTratamiento().getPrecio() + valorAdicional) * super.getcantidadSesiones();
+        }else{
+            costoTotal = super.calcularCostoTratamiento();
+        }
         return costoTotal;
     }
 }
