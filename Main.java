@@ -286,8 +286,15 @@ public class Main {
         // Punto f      
 
         // Punto g
-
-        // Punto h
+        int cantidadClientesSoloAtendidosEnBS = 0;
+        for(Cliente cliente : clientes){
+            boolean seAtiendeSoloEnBS = true;
+            for(Sucursal sucursal : cliente.getSucursales()){
+                seAtiendeSoloEnBS = (sucursal.getNombre().toLowerCase() != "buenos aires") ? false : true; 
+            }
+            cantidadClientesSoloAtendidosEnBS += seAtiendeSoloEnBS ? 1 : 0;
+        }
+        System.out.printf("Se atienden %d clientes solo en Buenos Aires", cantidadClientesSoloAtendidosEnBS);
 
         // Punto i
         if(args.length == 0){
@@ -331,13 +338,8 @@ public class Main {
                         }
                     }
                 }
-
-
-
             }
         }
-
-
 
         // Punto j
         for(Sucursal sucursal : sucursales){
