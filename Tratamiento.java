@@ -29,7 +29,7 @@ public class Tratamiento {
         this.precio = precio;
     }
 
-    public boolean isInyectable() {
+    public boolean getInyectable() {
         return inyectable;
     }
 

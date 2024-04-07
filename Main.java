@@ -304,8 +304,23 @@ public class Main {
         }
 
         // Punto f      
+        Calendar fechaHace3Meses = Calendar.getInstance();
+        fechaHace3Meses.add(Calendar.MONTH, -3);
         for(Tratamiento tratamiento : tratamientos){
-
+            if(tratamiento.getInyectable() && tratamiento.getTipoTratamiento() == 'c'){
+                boolean utilizado = false;
+                for(Cliente cliente : clientes){
+                    for(TratamientosPersonales tratamientoP : cliente.getTratamientosPersonales()){
+                        if(tratamientoP.getTratamiento().getNombre() == tratamiento.getNombre() && cliente.getFechaInicio().after(fechaHace3Meses)){
+                            utilizado = true;
+                            break;
+                        }
+                    }
+                }
+                if(!utilizado){
+                    System.out.println("El tratamiento no utilizado es: " + tratamiento.getNombre());
+                }
+            }
         }
 
         // Punto g
