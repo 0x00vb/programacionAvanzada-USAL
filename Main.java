@@ -282,19 +282,42 @@ public class Main {
         }
 
         // Punto e
+        for(Cliente cliente : clientes){
+            if(cliente instanceof ConPrepaga && cliente.calcularCosto() > ((ConPrepaga)cliente).getPrepaga().getTopeReintegro()){
+                System.out.println("Numero dni: : " + cliente.getNumeroDni());
+                System.out.println("Nombre: " + cliente.getNombre());
+                Calendar fechaNacimiento = cliente.getFechaNacimiento();
+                System.out.print("Fecha Nacimiento: ");
+                int year = fechaNacimiento.get(Calendar.YEAR);
+                int month = fechaNacimiento.get(Calendar.MONTH) + 1;
+                int day = fechaNacimiento.get(Calendar.DAY_OF_MONTH);
+                System.out.printf("%d/%d/%d\n", year, month, day);
+                System.out.println("Forma de pago: " + cliente.getFormaPago());
+                System.out.println("Nombre de prepaga: " + ((ConPrepaga)cliente).getPrepaga().getNombre());
+
+                double costoTotalSinReintegro = 0.0;
+                for(TratamientosPersonales tratamientoP : cliente.getTratamientosPersonales()){costoTotalSinReintegro += tratamientoP.calcularCostoTratamiento();}
+                System.out.println("Costo total: (sin contar reintegro)" + costoTotalSinReintegro);
+                System.out.println("Tope de reintegro: " + ((ConPrepaga)cliente).getPrepaga().getTopeReintegro());
+                System.out.println("Valor realmente a pagar: " + cliente.calcularCosto());
+            }
+        }
 
         // Punto f      
+        for(Tratamiento tratamiento : tratamientos){
+
+        }
 
         // Punto g
         int cantidadClientesSoloAtendidosEnBS = 0;
         for(Cliente cliente : clientes){
             boolean seAtiendeSoloEnBS = true;
             for(Sucursal sucursal : cliente.getSucursales()){
-                seAtiendeSoloEnBS = (sucursal.getNombre().toLowerCase() != "buenos aires") ? false : true; 
+                seAtiendeSoloEnBS = (sucursal.getProvincia().toLowerCase() != "buenos aires") ? false : true; 
             }
             cantidadClientesSoloAtendidosEnBS += seAtiendeSoloEnBS ? 1 : 0;
         }
-        System.out.printf("Se atienden %d clientes solo en Buenos Aires", cantidadClientesSoloAtendidosEnBS);
+        System.out.printf("Clientes que solo se atienden en capital: %d", cantidadClientesSoloAtendidosEnBS);
 
         // Punto i
         if(args.length == 0){

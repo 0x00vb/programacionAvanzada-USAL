@@ -29,7 +29,6 @@ public class Particular extends Cliente{
         contadorClientesParticulares = nuevoContadorClientesParticulares;
     }
 
-
     public double calcularCosto(){
         double costoFinal = 0.0d;
         for(TratamientosPersonales tratamientoP : this.getTratamientosPersonales()){
