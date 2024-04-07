@@ -2,6 +2,7 @@ import java.util.Calendar;
 
 public class Particular extends Cliente{
     private double porcentajeDescuento; //Es un porcentaje.
+    private static int contadorClientesParticulares = 0;
 
     public Particular(
         String nombre, int numeroDni, Calendar fechaNacimiento, String objetivo,
@@ -9,6 +10,7 @@ public class Particular extends Cliente{
         ){
         super(nombre, numeroDni, fechaNacimiento, objetivo, sucursales, formaPago); 
         this.porcentajeDescuento = porcentajeDescuento;
+        contadorClientesParticulares++;
     }
 
     public double getPorcentajeDescuento(){
@@ -18,6 +20,15 @@ public class Particular extends Cliente{
     public void setPorcentajeDescuento(double porcentajeDescuento){
         this.porcentajeDescuento = porcentajeDescuento;
     }
+
+    public static int getContadorClientesParticulares() {
+        return contadorClientesParticulares;
+    }
+
+    public static void setContadorClientesParticulares(int nuevoContadorClientesParticulares) {
+        contadorClientesParticulares = nuevoContadorClientesParticulares;
+    }
+
 
     public double calcularCosto(){
         double costoFinal = 0.0d;
