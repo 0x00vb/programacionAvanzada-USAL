@@ -292,6 +292,28 @@ public class Main {
         // Punto i
 
         // Punto j
+        for(Sucursal sucursal : sucursales){
+            int totalClientes = 0;
+            int clientesConPrepaga = 0;
+
+            for(Cliente cliente : clientes){
+                for(Sucursal sucursalCliente : cliente.getSucursales()){
+                    if(sucursal.getNombre() == sucursalCliente.getNombre()){
+                        totalClientes++;
+                        if(cliente instanceof ConPrepaga){
+                            clientesConPrepaga++;
+                        }
+                    }
+                }
+            }
+
+            int clientesParticulares = totalClientes - clientesConPrepaga;
+            double porcentajeConPrepaga = (double) clientesConPrepaga / totalClientes * 100;
+            double porcentajeParticulares = 100.0 - porcentajeConPrepaga;
+
+            System.out.printf("Cantidad clientes con prepaga: %d (%f%)", clientesConPrepaga, porcentajeConPrepaga);
+            System.out.printf("Cantidad clientes particulares: %d (%f%)", clientesParticulares, porcentajeParticulares);
+        }
 
         // Punto k
         Random random = new Random();
