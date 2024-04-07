@@ -24,7 +24,7 @@ public class Salud extends TratamientosPersonales {
     public double calcularCostoTratamiento() {
         double costoTotal;
         if(consultaClinica){
-            costoTotal = (super.getTratamiento().getPrecio() + valorAdicional) * super.getcantidadSesiones();
+            costoTotal = (super.getTratamiento().getPrecio() + valorAdicional) * super.getCantidadSesiones();
         }else{
             costoTotal = super.calcularCostoTratamiento();
         }

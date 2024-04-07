@@ -12,11 +12,11 @@ public class TratamientosPersonales {
         this.tratamiento = tratamiento;
     }
 
-    public int getcantidadSesiones() {
+    public int getCantidadSesiones() {
         return cantidadSesiones;
     }
 
-    public void setcantidadSesiones(int cantidadSesiones) {
+    public void setCantidadSesiones(int cantidadSesiones) {
         this.cantidadSesiones = cantidadSesiones;
     }
 

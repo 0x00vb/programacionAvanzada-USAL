@@ -262,13 +262,13 @@ public class Main {
 
         System.out.println("Tratamientos del cliente: ");
         for(TratamientosPersonales tratamientoP : clienteAModificar.getTratamientosPersonales()){
-            System.out.printf("Tratamiento: %d\nCantidad de sesiones: %d\n", tratamientoP.getTratamiento().getNombre(), tratamientoP.getcantidadSesiones());
+            System.out.printf("Tratamiento: %d\nCantidad de sesiones: %d\n", tratamientoP.getTratamiento().getNombre(), tratamientoP.getCantidadSesiones());
             System.out.println("Desea cambiar la cantidad de sesiones: ");
             boolean modificarCantSesiones = Validaciones.validarBoolean();
             if(modificarCantSesiones){
                 System.out.printf("Ingrese nueva cantidad de sesiones. Deben ser menores a %d", tratamientoP.getTratamiento().getCantMaxSesiones());
                 int nuevaCantidadSesiones = Validaciones.validarIntConLimites(scanner, 1, tratamientoP.getTratamiento().getCantMaxSesiones());
-                tratamientoP.setcantidadSesiones(nuevaCantidadSesiones);
+                tratamientoP.setCantidadSesiones(nuevaCantidadSesiones);
             }else if(tratamientoP instanceof Salud){
                 boolean consultaClinicaVieja = ((Salud)tratamientoP).getConsultaClinica();
                 System.out.printf("La modificar la necesidad de consultaClinica? actualmente %s es necesaria.", (consultaClinicaVieja ? "si" : "no"));
@@ -290,6 +290,54 @@ public class Main {
         // Punto h
 
         // Punto i
+        if(args.length == 0){
+            System.out.println("No se han asignado parametros a la aplicacion. Deteniendo el programa...");
+            return;
+        }
+        double valorParametroAplicacion;
+        try {
+            valorParametroAplicacion = Double.parseDouble(args[0]);
+        } catch (NumberFormatException e) {
+            System.err.println("Error: El parámetro ingresado no es un número válido.");
+            return;
+        }
+        Calendar fechaHace30Dias = Calendar.getInstance();
+        fechaHace30Dias.add(Calendar.DAY_OF_YEAR, -30);
+        for(Cliente cliente : clientes){
+            if(cliente.getFechaInicio().after(fechaHace30Dias) && cliente.getFormaPago() == 'd'){
+                System.out.println("Nombre: " + cliente.getNombre());
+                if(cliente instanceof ConPrepaga){
+                    System.out.println("Nombre prepaga: " + ((ConPrepaga)cliente).getPrepaga().getNombre());
+                    System.out.printf("Numero afiliado: %d\n" + ((ConPrepaga)cliente).getnumeroAfiliado());
+                }else{
+                    double porcentajeDescuento = ((Particular)cliente).getPorcentajeDescuento();
+                    if(cliente.getFormaPago() == 'e'){
+                        porcentajeDescuento += porcentajeDescuento * 0.05;
+                    }
+                    System.out.println("Porcentaje de descuento: " + porcentajeDescuento);
+                }
+
+                System.out.println("Tratamientos con costo menor al argumento de aplicacion: ");
+                for(TratamientosPersonales tratamientoP : cliente.getTratamientosPersonales()){
+                    if(tratamientoP.calcularCostoTratamiento() < valorParametroAplicacion){
+                        System.out.println("Nombre: " + tratamientoP.getTratamiento().getNombre());
+                        System.out.println("Cantidad de Sesiones: " + tratamientoP.getCantidadSesiones());
+                        if(tratamientoP instanceof Salud){
+                            if(((Salud)tratamientoP).getConsultaClinica()){
+                                System.out.printf("Requiere de consulta medica. Valor adicional: %f", ((Salud)tratamientoP).getValorAdicional());
+                            }else{
+                                System.out.println("No requiere de consula medica extra.");
+                            }
+                        }
+                    }
+                }
+
+
+
+            }
+        }
+
+
 
         // Punto j
         for(Sucursal sucursal : sucursales){

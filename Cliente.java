@@ -81,7 +81,7 @@ abstract class Cliente {
 
     public void setTratamientoPersonal(int posicion, Tratamiento tratamiento, int cantidaSesiones) {
         tratamientosPersonales[posicion].setTratamiento(tratamiento);
-        tratamientosPersonales[posicion].setcantidadSesiones(cantidaSesiones);
+        tratamientosPersonales[posicion].setCantidadSesiones(cantidaSesiones);
     }
 
     public char getFormaPago() {
