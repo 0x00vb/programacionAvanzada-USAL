@@ -4,6 +4,11 @@ public class TratamientosPersonales {
 
     public TratamientosPersonales(){}
 
+    public TratamientosPersonales(Tratamiento tratamiento, int cantidadSesiones){
+        this.tratamiento = tratamiento;
+        this.cantidadSesiones = cantidadSesiones;
+    }
+
     public Tratamiento getTratamiento() {
         return tratamiento;
     }

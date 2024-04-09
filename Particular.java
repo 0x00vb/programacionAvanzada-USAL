@@ -35,7 +35,7 @@ public class Particular extends Cliente{
             costoFinal += tratamientoP.calcularCostoTratamiento();
         }
         if(this.formaPago == 'e'){
-            porcentajeDescuento += porcentajeDescuento * 0.05; //porcentajeDescuento es incrementado un 5%78
+            porcentajeDescuento += porcentajeDescuento * 0.05; //porcentajeDescuento es incrementado un 5%
         }
         costoFinal -= costoFinal * porcentajeDescuento;
         return costoFinal;

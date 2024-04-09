@@ -1,8 +1,13 @@
-public class Salud extends TratamientosPersonales {
+public final class Salud extends TratamientosPersonales {
     private boolean consultaClinica;
     private static double valorAdicional;
 
     public Salud(){}
+
+    public Salud(Tratamiento tratamiento, int cantidadSesiones, boolean consultaClinica){
+        super(tratamiento, cantidadSesiones);
+        this.consultaClinica = consultaClinica;
+    }
 
     public boolean getConsultaClinica() {
         return consultaClinica;
@@ -16,7 +21,7 @@ public class Salud extends TratamientosPersonales {
         return valorAdicional;
     }
 
-    public void setValorAdicional(double valorAdicional) {
+    public static void setValorAdicional(double valorAdicional) {
         Salud.valorAdicional = valorAdicional;
     }
 

@@ -1,6 +1,6 @@
 import java.util.Calendar;
 
-abstract class Cliente {
+abstract class Cliente implements ICalculable {
     protected String nombre;
     protected int numeroDni;
     protected Calendar fechaNacimiento;
@@ -10,11 +10,7 @@ abstract class Cliente {
     protected TratamientosPersonales[] tratamientosPersonales; // Composicion
     protected char formaPago;
 
-    public Cliente(){
-        for(int i = 0; i < 10; i++){
-            tratamientosPersonales[i] = new TratamientosPersonales();
-        }
-    }   
+    public Cliente(){}   
 
     public Cliente(String nombre, int numeroDni, Calendar fechaNacimiento, String objetivo, Sucursal[] sucursales, char formaPago){
         this();
@@ -79,10 +75,12 @@ abstract class Cliente {
         return tratamientosPersonales;
     }
 
-    public void setTratamientoPersonal(int posicion, Tratamiento tratamiento, int cantidaSesiones) {
-        tratamientosPersonales[posicion].setTratamiento(tratamiento);
-        tratamientosPersonales[posicion].setCantidadSesiones(cantidaSesiones);
-    }
+	public void setTratamientoPersonal(int pos, Tratamiento tratamiento, int cantidadSesiones) {
+		tratamientosPersonales[pos]= new TratamientosPersonales(tratamiento, cantidadSesiones);
+	}
+	public void setTratamientoPersonal(int pos, Tratamiento tratamiento, int cantidadSesiones, boolean consultaClinica) {
+		tratamientosPersonales[pos]= new Salud(tratamiento, cantidadSesiones, consultaClinica);
+	}
 
     public char getFormaPago() {
         return formaPago;

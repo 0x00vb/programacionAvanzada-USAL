@@ -86,6 +86,12 @@ public class Main {
             }while(tipoTratamiento != 'f' && tipoTratamiento != 'c' && tipoTratamiento != 's');
             
             tratamientos[i] = new Tratamiento(nombre, precioSesion, inyectable, cantMaxSesiones, tipoTratamiento);
+        
+            if(i == 1){
+                System.out.println("Ingresar (por unica vez) el costo de consulta adicional media: ");
+                double costoAdicionalConsultaMedica = Validaciones.validarDouble();
+                Salud.setValorAdicional(costoAdicionalConsultaMedica);
+            }
         }
 
         // Ingreso datos clientes completo (Punto c)
@@ -199,15 +205,15 @@ public class Main {
                                 System.out.println("Require consulta medica: ");
                                 boolean consultaMedica = Validaciones.validarBoolean();
 
-
+                                clientes[i].setTratamientoPersonal(j, tratamientoSeleccionado, cantidadSesiones, consultaMedica);
+                            }else{
+                                clientes[i].setTratamientoPersonal(j, tratamientoSeleccionado, cantidadSesiones);
                             }
                         }
-
                     }else{
                         System.out.println("Ese tratamiento no existe. Intente nuevamente.");
                     }
                 }
-                
             }
         }
 
@@ -219,10 +225,10 @@ public class Main {
                             "2. Punto e\n" +
                             "3. Punto f\n" +
                             "4. Punto g\n" +
-                            // Punto h en clase Particulares
-                            "5. Punto i\n" +
-                            "6. Punto j\n" +
-                            "7. Punto k\n" + 
+                            "5. Punto h\n" +
+                            "6. Punto i\n" +
+                            "7. Punto j\n" +
+                            "8. Punto k\n" + 
                             "0. Finalizar programa."
             );
             opcion = Validaciones.validarIntConLimites(scanner, 0, 7);
@@ -251,7 +257,7 @@ public class Main {
                             }
                         }
                         System.out.printf("Ingrese el indice del cliente quiere modificar (0 - %d): \n", cantidadResultados);
-                        int seleccionCliente = Validaciones.validarInt();
+                        int seleccionCliente = Validaciones.validarIntConLimites(scanner, 0, cantidadResultados);
                         clienteAModificar = resultadosBusquedaCliente[seleccionCliente];
                     }else if(cantidadResultados == 1){
                         clienteAModificar = resultadosBusquedaCliente[0];
@@ -340,8 +346,11 @@ public class Main {
                     }
                     System.out.printf("Clientes que solo se atienden en capital: %d", cantidadClientesSoloAtendidosEnBS);
                     break;
-
                 case 5:
+                    // Punto h
+                    System.out.println("Cantidad de usuarios particulares: " + Particular.getContadorClientesParticulares());
+                    break;
+                case 6:
                     // Punto i
                     if(args.length == 0){
                         System.out.println("No se han asignado parametros a la aplicacion. Deteniendo el programa...");
@@ -388,7 +397,7 @@ public class Main {
                     }
                     break;
 
-                case 6:
+                case 7:
                     // Punto j
                     for(Sucursal sucursal : sucursales){
                         int totalClientes = 0;
@@ -414,7 +423,7 @@ public class Main {
                     }
                     break;
 
-                case 7:
+                case 8:
                     // Punto k
                     Random random = new Random();
                     // Generar un número aleatorio de dos dígitos entre 01 y 99
