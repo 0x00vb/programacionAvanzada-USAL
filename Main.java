@@ -192,22 +192,23 @@ public class Main {
                     Tratamiento tratamientoSeleccionado;
                     if(Validaciones.buscaTratamiento(tratamientos, nombreTratamientoSeleccionado) != null){
                         for(TratamientosPersonales tratamientoPersonal : clientes[i].getTratamientosPersonales()){
-                            if(tratamientoPersonal.getTratamiento().getNombre() == nombreTratamientoSeleccionado){
-                                System.out.println("Este tratamiento ya ha sido asignado al cliente! Intente nuevamente.");
-                                break;
-                            }
-                            tratamientoSeleccionado = Validaciones.buscaTratamiento(tratamientos, nombreTratamientoSeleccionado);
+                            if(tratamientoPersonal.getTratamiento().getNombre() != nombreTratamientoSeleccionado){
+                                tratamientoSeleccionado = Validaciones.buscaTratamiento(tratamientos, nombreTratamientoSeleccionado);
                             
-                            System.out.printf("Ingrese la cantidad de sesiones. Debe ser menor a %d", tratamientoSeleccionado.getCantMaxSesiones());
-                            int cantidadSesiones = Validaciones.validarIntConLimites(scanner, 1, tratamientoSeleccionado.getCantMaxSesiones());
-
-                            if(tratamientoSeleccionado.getTipoTratamiento() == 's'){
-                                System.out.println("Require consulta medica: ");
-                                boolean consultaMedica = Validaciones.validarBoolean();
-
-                                clientes[i].setTratamientoPersonal(j, tratamientoSeleccionado, cantidadSesiones, consultaMedica);
+                                System.out.printf("Ingrese la cantidad de sesiones. Debe ser menor a %d", tratamientoSeleccionado.getCantMaxSesiones());
+                                int cantidadSesiones = Validaciones.validarIntConLimites(scanner, 1, tratamientoSeleccionado.getCantMaxSesiones());
+    
+                                if(tratamientoSeleccionado.getTipoTratamiento() == 's'){
+                                    System.out.println("Require consulta medica: ");
+                                    boolean consultaMedica = Validaciones.validarBoolean();
+    
+                                    clientes[i].setTratamientoPersonal(j, tratamientoSeleccionado, cantidadSesiones, consultaMedica);
+                                }else{
+                                    clientes[i].setTratamientoPersonal(j, tratamientoSeleccionado, cantidadSesiones);
+                                }
+                                break;
                             }else{
-                                clientes[i].setTratamientoPersonal(j, tratamientoSeleccionado, cantidadSesiones);
+                                System.out.println("Este tratamiento ya ha sido asignado al cliente! Intente nuevamente.");
                             }
                         }
                     }else{
@@ -264,6 +265,7 @@ public class Main {
                     }else{
                         System.out.println("Ese cliente no existe!");
                         clienteAModificar = null;
+                        break;
                     }
 
                     System.out.println("Tratamientos del cliente: ");
