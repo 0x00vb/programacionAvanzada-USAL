@@ -271,6 +271,50 @@ public class Main {
                     System.out.println("Tratamientos del cliente: ");
                     for(TratamientosPersonales tratamientoP : clienteAModificar.getTratamientosPersonales()){
                         System.out.printf("Tratamiento: %d\nCantidad de sesiones: %d\n", tratamientoP.getTratamiento().getNombre(), tratamientoP.getCantidadSesiones());
+                        System.out.println("Desea cambiar el tratamiento?");
+
+                        // Cambiar el tratamiento completo.
+                        boolean cambiarTratamiento = Validaciones.validarBoolean();
+                        if(cambiarTratamiento){
+                            System.out.println("Listado de tratamientos disponibles: ");
+                            for(Tratamiento tratamiento : tratamientos){
+                                System.out.printf(" %s |", tratamiento.getNombre());
+                            }
+                            System.out.println("Nombre del nuevo tratamiento: ");
+                            while(true){
+                                System.out.printf("Nuevo tratamiento %d: ");
+                                String nombreTratamientoSeleccionado = scanner.nextLine();
+                                Tratamiento tratamientoSeleccionado;
+                                if(Validaciones.buscaTratamiento(tratamientos, nombreTratamientoSeleccionado) != null){
+                                    for(TratamientosPersonales tratamientoPersonal : clienteAModificar.getTratamientosPersonales()){
+                                        if(tratamientoPersonal.getTratamiento().getNombre() != nombreTratamientoSeleccionado){
+                                            tratamientoSeleccionado = Validaciones.buscaTratamiento(tratamientos, nombreTratamientoSeleccionado);
+                                        
+                                            System.out.printf("Ingrese la cantidad de sesiones. Debe ser menor a %d", tratamientoSeleccionado.getCantMaxSesiones());
+                                            int cantidadSesiones = Validaciones.validarIntConLimites(scanner, 1, tratamientoSeleccionado.getCantMaxSesiones());
+                
+                                            if(tratamientoSeleccionado.getTipoTratamiento() == 's'){
+                                                System.out.println("Require consulta medica: ");
+                                                boolean consultaMedica = Validaciones.validarBoolean();
+                
+                                                tratamientoP.setTratamiento(tratamientoSeleccionado);
+                                                tratamientoP.setCantidadSesiones(cantidadSesiones);
+                                                ((Salud)tratamientoP).setConsultaClinica(consultaMedica);
+                                            }else{
+                                                tratamientoP.setTratamiento(tratamientoSeleccionado);
+                                            }
+                                            break;
+                                        }else{
+                                            System.out.println("Este tratamiento ya ha sido asignado al cliente! Intente nuevamente.");
+                                        }
+                                    }
+                                }else{
+                                    System.out.println("Ese tratamiento no existe. Intente nuevamente.");
+                                }
+                            }                     
+                        }
+
+                        // Modifica datos menores del tratamiento ya existente.
                         System.out.println("Desea cambiar la cantidad de sesiones: ");
                         boolean modificarCantSesiones = Validaciones.validarBoolean();
                         if(modificarCantSesiones){

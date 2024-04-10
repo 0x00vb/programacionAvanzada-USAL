@@ -30,3 +30,7 @@ public class TratamientosPersonales {
         return costoTotal;
     }
 }
+
+
+
+
