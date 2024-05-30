@@ -18,7 +18,8 @@ public class Pantalla1 implements ActionListener{
 	private JLabel lblPrecio = new JLabel("Precio");
 	private JTextField txtPrecio = new JTextField(20);
 	
-	private JButton boton = new JButton("Cargar");
+	private JButton boton1 = new JButton("Cargar");
+	private JButton boton2 = new JButton("Cancelar");
 	
 	public Pantalla1() {
 		ventana.setSize(250,300);
@@ -32,8 +33,11 @@ public class Pantalla1 implements ActionListener{
 		ventana.add(lblPrecio);
 		ventana.add(txtPrecio);
 		
-		ventana.add(boton);	
-		boton.addActionListener(this);
+		ventana.add(boton1);	
+		boton1.addActionListener(this);
+		
+		ventana.add(boton2);
+		boton2.addActionListener(this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -66,6 +70,10 @@ public class Pantalla1 implements ActionListener{
 				JOptionPane.showMessageDialog(ventana, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
 			}
 
+		}
+		
+		if(e.getActionCommand().equals("Cancelar")){
+			ventana.setVisible(false);
 		}
 	}
 	
