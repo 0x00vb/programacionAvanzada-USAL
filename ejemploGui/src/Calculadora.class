@@ -40,7 +40,7 @@ public class Calculadora implements ActionListener{
 		ventana.add(btnCalcular);
 		
 		ventana.setVisible(true);
-	}
+JTextArea	}
 	
 	public void actionPerformed(ActionEvent e) {
 		String strDividendo = txtDividendo.getText();
