@@ -11,7 +11,7 @@ public class Menu implements ActionListener{
 	private JButton boton3 = new JButton("Punto c");
 	
 	public Menu() {
-		ventana.setSize(300, 300);
+		ventana.setSize(200, 300);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventana.setLayout(new FlowLayout());
 
@@ -31,9 +31,13 @@ public class Menu implements ActionListener{
     			pantalla1.mostrar();
     			break;
     		case "Punto b":
+    			Pantalla2 pantalla2 = new Pantalla2();
+    			pantalla2.mostrar();
     			break;
-    			
-    			
+    		case "Punto c":
+    			Pantalla3 pantalla3 = new Pantalla3();
+    			pantalla3.mostrar();
+    			break;
     		default:
     			break;
     	}

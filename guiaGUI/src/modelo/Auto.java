@@ -48,4 +48,14 @@ public class Auto {
         mantenimientos.add(new Mantenimiento(tipo, fecha, costo));
     }
 	
+    public double calcularCostoTotal() {
+    	double costoTotal = this.precioCompra;
+    	
+    	for(Mantenimiento m : mantenimientos) {
+    		costoTotal += m.getCosto();
+    	}
+    	
+    	return costoTotal;
+    }
+    
 }

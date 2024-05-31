@@ -42,7 +42,7 @@ public class AutoTXT {
 			archivo = new File("./auto.txt");
 			archivoSalida = new PrintWriter(new FileWriter(archivo, true));
 			
-			archivoSalida.printf("%-7s %-4s %-8s%n", auto.getPatente(), auto.getAnio(), auto.getPrecioCompra());
+			archivoSalida.printf("%-7s %-4s %-8.2f%n", auto.getPatente(), auto.getAnio(), auto.getPrecioCompra());
 			
 		}catch(IOException err) {
 			err.printStackTrace();

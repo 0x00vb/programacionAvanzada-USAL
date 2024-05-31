@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.*;
 
 public class MantenimientoTXT {
-	public void leerMantenimientos(Auto auto){
+	public static void leerMantenimientos(Auto auto){
 		File archivo = null;
 		Scanner archivoEntrada = null;
 		try {
@@ -32,6 +32,7 @@ public class MantenimientoTXT {
 				double costo = Double.parseDouble(partes[3]);
 				
 				if(patente.equals(auto.getPatente())) {
+					
 					auto.agregarMantenimiento(tipo, fecha, costo);
 				}
 			}
@@ -44,4 +45,24 @@ public class MantenimientoTXT {
 			}
 		}
 	}
+	
+	public static void cargarMantenimiento(String patente, char tipo, String fecha, double costo) {
+		File archivo = null;
+		PrintWriter archivoSalida = null;
+		try {
+			archivo = new File("./mantenimiento.txt");
+			archivoSalida = new PrintWriter(new FileWriter(archivo, true));
+			
+			archivoSalida.printf("%s;%s;%s;%.2f%n", patente, tipo, fecha, costo);
+					
+		}catch(IOException err) {
+			err.printStackTrace();
+		}finally {
+			if(archivoSalida != null) {
+				archivoSalida.close();
+			}
+		}
+	}
+	
+	
 }
