@@ -62,8 +62,6 @@ public class AutoControlador {
 					+ "Tipo: %s\n"
 					+ "Costo: %.2f", fechaString, tipo, mantenimientoMayor.getCosto()
 			);
-			
-			System.out.print(respuesta);
 		}
 		
 		return respuesta;

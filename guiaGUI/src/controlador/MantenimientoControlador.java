@@ -17,9 +17,7 @@ public class MantenimientoControlador {
 		
 		auto.agregarMantenimiento(tipo, fechaActual, precio);
 		MantenimientoTXT.cargarMantenimiento(patente, tipo, fechaParseada, precio);
-		
-		System.out.println(auto.getMantenimientos().size());
-		
+				
 		return 0;
 	}
 	

@@ -32,7 +32,6 @@ public class MantenimientoTXT {
 				double costo = Double.parseDouble(partes[3]);
 				
 				if(patente.equals(auto.getPatente())) {
-					
 					auto.agregarMantenimiento(tipo, fecha, costo);
 				}
 			}
