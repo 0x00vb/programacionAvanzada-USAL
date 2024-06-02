@@ -1,0 +1,12 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/home/valentino/Downloads/javax.json-api-1.1-javadoc.jar",
+        "/home/valentino/Downloads/javax.json-api-1.1.jar",
+        "/Users/valentinobalatti/Downloads/javax.json-api-1.1.jar"
+    ],
+    "workbench.colorCustomizations": {
+        "minimap.background": "#00000000",
+        "scrollbar.shadow": "#00000000"
+    }
+}
