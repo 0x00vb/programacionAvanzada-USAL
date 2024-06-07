@@ -1,0 +1,34 @@
+[
+    {
+        "numeroCamarote": 101,
+        "piso": 1,
+        "pesoMaximoPermitido": 1500,
+        "comodidades": [
+            "TV",
+            "Minibar",
+            "Aire acondicionado"
+        ]
+    },
+    {
+        "numeroCamarote": 102,
+        "piso": 1,
+        "pesoMaximoPermitido": 1500,
+        "comodidades": [
+            "TV",
+            "Minibar",
+            "Aire acondicionado",
+            "Balcón"
+        ]
+    },
+    {
+        "numeroCamarote": 201,
+        "piso": 2,
+        "pesoMaximoPermitido": 2000,
+        "comodidades": [
+            "TV",
+            "Minibar",
+            "Aire acondicionado",
+            "Jacuzzi"
+        ]
+    }
+]
