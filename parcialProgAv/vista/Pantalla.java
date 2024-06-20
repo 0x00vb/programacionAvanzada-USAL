@@ -123,7 +123,6 @@ public class Pantalla implements ActionListener{
             String partidoGanador = controlador.determinarPartidoGanador();
             txtResultado.setText(partidoGanador);
         }
-
     }
 
     private String obtenerSexoSeleccionado() {

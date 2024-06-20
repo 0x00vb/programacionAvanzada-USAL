@@ -114,37 +114,37 @@ public class Controlador {
         }
     }
 
-    public double calcularPorcentajePartidoGanador() {
-        int votosGanador = 0;
-        String partidoGanador = determinarPartidoGanador();
+    // public double calcularPorcentajePartidoGanador() {
+    //     int votosGanador = 0;
+    //     String partidoGanador = determinarPartidoGanador();
 
-        if (partidoGanador.equals("Partido A")) {
-            votosGanador = calcularVotosPartidoA();
-        } else if (partidoGanador.equals("Partido B")) {
-            votosGanador = calcularVotosPartidoB();
-        }
+    //     if (partidoGanador.equals("Partido A")) {
+    //         votosGanador = calcularVotosPartidoA();
+    //     } else if (partidoGanador.equals("Partido B")) {
+    //         votosGanador = calcularVotosPartidoB();
+    //     }
 
-        int votosTotales = calcularVotosTotales();
-        if (votosTotales > 0) {
-            return (double) votosGanador / votosTotales * 100;
-        } else {
-            return 0.0;
-        }
-    }
+    //     int votosTotales = calcularVotosTotales();
+    //     if (votosTotales > 0) {
+    //         return (double) votosGanador / votosTotales * 100;
+    //     } else {
+    //         return 0.0;
+    //     }
+    // }
 
-    public int contarMesasConVotosPartidoA(int votosPartidoA) {
-        int count = 0;
-        for (Mesa mesa : mesas) {
-            if (mesa.getVotosPartidoA() == votosPartidoA) {
-                count++;
-            }
-        }
-        return count;
-    }
+    // public int contarMesasConVotosPartidoA(int votosPartidoA) {
+    //     int count = 0;
+    //     for (Mesa mesa : mesas) {
+    //         if (mesa.getVotosPartidoA() == votosPartidoA) {
+    //             count++;
+    //         }
+    //     }
+    //     return count;
+    // }
 
-    public List<Mesa> mesasConMasVotantes() {
-        List<Mesa> mesasOrdenadas = new ArrayList<>(mesas);
-        mesasOrdenadas.sort(Comparator.comparingInt(Mesa::getTotalVotantes).reversed());
-        return mesasOrdenadas;
-    }
+    // public List<Mesa> mesasConMasVotantes() {
+    //     List<Mesa> mesasOrdenadas = new ArrayList<>(mesas);
+    //     mesasOrdenadas.sort(Comparator.comparingInt(Mesa::getTotalVotantes).reversed());
+    //     return mesasOrdenadas;
+    // }
 }
