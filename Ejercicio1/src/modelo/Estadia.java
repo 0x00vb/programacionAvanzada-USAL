@@ -96,6 +96,7 @@ public class Estadia implements ICalculable{
         double costoTotal = 0.0;
         double costoConsumos = 0.0;
         double costoAdicionalLimpieza = 0.0;
+        double costoExcursiones = 0.0;
         costoTotal += alojamiento.getTarifaDiaria().getTarifa() * cantidadDias;
         
         if(alojamiento instanceof Cabaña){
@@ -109,10 +110,13 @@ public class Estadia implements ICalculable{
         for(Servicios servicio : servicios){
             if(servicio instanceof ServicioBar){
                 costoConsumos += ((ServicioBar)servicio).calcularCostoConsumo();
-            }else{
+            }else if(servicio instanceof Limpieza){
                 costoAdicionalLimpieza += Limpieza.getprecio();
+            }else {
+            	costoExcursiones += ((InscripcionExcursiones)servicio).getExcursion().getCosto();
             }
         }
+
 
         costoTotal += costoConsumos;
         costoTotal += costoAdicionalLimpieza;

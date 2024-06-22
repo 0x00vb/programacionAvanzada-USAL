@@ -3,11 +3,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import modelo.*;
+import modelo.Mesa;
+import modelo.Localidad;
+import modelo.Provincia;
+
 import modelo.modeloDAO.*;
 
 public class Controlador {
@@ -15,6 +21,10 @@ public class Controlador {
     ArrayList<Provincia> provincias = new ArrayList<Provincia>(); //(Provincias ya leidas)
     ArrayList<Localidad> localidades = new ArrayList<Localidad>(); //(Localidades ya leidas)
     ArrayList<Mesa> mesas = new ArrayList<Mesa>();
+    private String arg;
+    public Controlador(String arg){
+        this.arg = arg;
+    }
 
     public void asociarLocalidadesAProvincias() {
         for (Localidad localidad : localidades) {
@@ -78,73 +88,70 @@ public class Controlador {
         return 0;
     }
 
-    public int calcularVotosPartidoA() {
-        int totalVotosA = 0;
-        for (Mesa mesa : mesas) {
-            totalVotosA += mesa.getVotosPartidoA();
-        }
-        return totalVotosA;
-    }
 
-    public int calcularVotosPartidoB() {
-        int totalVotosB = 0;
-        for (Mesa mesa : mesas) {
-            totalVotosB += mesa.getVotosPartidoB();
-        }
-        return totalVotosB;
-    }
-    public int calcularCantidadTotalVotantes() {
-        int cantidadTotal = 0;
-        for (Mesa mesa : mesas) {
-            cantidadTotal += mesa.getVotosPartidoA() + mesa.getVotosPartidoB();
-        }
-        return cantidadTotal;
-    }
 
-    public String determinarPartidoGanador() {
-        int votosA = calcularVotosPartidoA();
-        int votosB = calcularVotosPartidoB();
+    public String getPartidoGanador(){
+        int votosA = 0;
+        int votosB = 0;
+        int totalVotos = 0;
+        for(Mesa mesa : mesas){
+            votosA += mesa.getVotosPartidoA();
+            votosB += mesa.getVotosPartidoB();
+            totalVotos += mesa.getVotosPartidoA() + mesa.getVotosPartidoB();
+        }
 
-        if (votosA > votosB) {
-            return "Partido A";
-        } else if (votosB > votosA) {
-            return "Partido B";
-        } else {
+        if(votosA == votosB)
             return "Empate";
-        }
+
+        String ganador = (votosA > votosB ? "A" : "B");
+        double porcentaje = (ganador == "A" ? votosA : votosB) / totalVotos * 100;
+        String porcentajeS = String.format(" %.2f", porcentaje);
+        ganador += porcentajeS;
+
+        return ganador;
     }
 
-    // public double calcularPorcentajePartidoGanador() {
-    //     int votosGanador = 0;
-    //     String partidoGanador = determinarPartidoGanador();
 
-    //     if (partidoGanador.equals("Partido A")) {
-    //         votosGanador = calcularVotosPartidoA();
-    //     } else if (partidoGanador.equals("Partido B")) {
-    //         votosGanador = calcularVotosPartidoB();
-    //     }
+    public String getCantVotantes(){
+        Iterator<Mesa> iteratorMesa = mesas.iterator();
+        int cantidadTotal = 0;
+        while(iteratorMesa.hasNext()){
+            Mesa mesa = iteratorMesa.next();
+            cantidadTotal += mesa.getVotosPartidoA() + mesa.getNumero();
+        }
+        String r = "" + cantidadTotal;
+        return r;
+    }
 
-    //     int votosTotales = calcularVotosTotales();
-    //     if (votosTotales > 0) {
-    //         return (double) votosGanador / votosTotales * 100;
-    //     } else {
-    //         return 0.0;
-    //     }
-    // }
+    public void puntoA(){
+        int cantidad = 0;
+        int a = Integer.parseInt(arg);
+        for(Mesa mesa : mesas){
+            if(mesa.getVotosPartidoA() == a){
+                cantidad++;
+            }
+        }
+        System.out.println(cantidad);
+    }
 
-    // public int contarMesasConVotosPartidoA(int votosPartidoA) {
-    //     int count = 0;
-    //     for (Mesa mesa : mesas) {
-    //         if (mesa.getVotosPartidoA() == votosPartidoA) {
-    //             count++;
-    //         }
-    //     }
-    //     return count;
-    // }
+    public void puntoB(){
 
-    // public List<Mesa> mesasConMasVotantes() {
-    //     List<Mesa> mesasOrdenadas = new ArrayList<>(mesas);
-    //     mesasOrdenadas.sort(Comparator.comparingInt(Mesa::getTotalVotantes).reversed());
-    //     return mesasOrdenadas;
-    // }
+    }
+
+    public List<Mesa> puntoC(){
+        ArrayList<Mesa> mesas = new ArrayList<Mesa>();
+
+
+
+    }
+
+    public Map<Integer, Integer> puntoD(){
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(Mesa mesa : mesas){
+            int cantidadVotantes = mesa.getVotosPartidoA() + mesa.getVotosPartidoB();
+            map.put(mesa.getNumero(), cantidadVotantes);
+        }
+        return map;
+    }
+
 }

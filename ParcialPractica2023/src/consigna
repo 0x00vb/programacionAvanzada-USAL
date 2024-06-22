@@ -1,0 +1,28 @@
+4 .- Una empresa que repara ascensores de diferentes edificios, necesita el desarrollo de una aplicación JAVA con OO y MVC para la administración de dichos ascensores.
+Del relevamiento realizado, se detectó que la empresa guarda los datos de los mismos, junto con las reparaciones realizados en un archivo JSON. De cada ascensor se conoce su
+código, dirección del edificio donde está ubicado y si se trata de uno manual o de uno automático. Luego, bajo la propiedad reparaciones, se incluyen todas las realizadas
+indicando su fecha (fecha del día con formato: dd/mm/yyyy), costo, si fue necesario un cambio de luces, un cambio de botonera y/o una mejora en su estructura y el número de
+documento del técnico responsable de la reparación.
+Cuando se realiza una nueva reparación, todos sus datos junto con el número de ascensor correspondiente se almacena en otro archivo Reparaciones.txt de ancho fijo; para lo cual
+será necesario el desarrollo de una pantalla gráfica considerando que los técnicos responsables ya fueron cargados desde el archivo Tecnicos.csv con el número de documento
+y nombre. Para evitar errores, la información debe ser confirmada por el usuario antes de ser guardada en el archivo.
+Se debe contar con un método que devuelva una estructura que no admita duplicados con la información de la dirección de los edificios, ordenada por la misma, donde todas las
+reparaciones hayan requerido una mejora y el costo supere un valor generado al azar.
+También, se desea conocer en una pantalla de consola:
+
+a) El número y la dirección de los ascensores manuales con el mayor costo total de reparaciones realizadas, haciendo uso de recorridos inversos.
+
+b) El nombre de los técnicos que no hicieron ningún cambio de botonera durante los últimos 6 meses.
+
+Nota: En el caso que el archivo JSON no coincida con una de las propiedades requeridas,
+se debe informar mediante una excepción propia (una es suficiente).
+
+
+	Asensor
+codigo, direccionEdificio, tipo, reparaciones
+
+	Reparacion
+fecha, costo, cambioLuces, cambioBotonera, mejoraEstructura, Tecnico
+	
+	Tecnico
+nombre, dni

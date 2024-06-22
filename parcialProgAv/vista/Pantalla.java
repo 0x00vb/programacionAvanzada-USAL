@@ -34,6 +34,10 @@ public class Pantalla implements ActionListener{
     private JButton mostrarResultado = new JButton("Resultado");
     private JTextField txtResultado = new JTextField(10);
 
+    private JLabel cantVotantesLbl = new JLabel("Votantes totales");
+    private JTextField cantVotantesTxt = new JTextField(10);
+
+
     private Controlador controlador;
     public Pantalla(Controlador controlador){
         this.controlador = controlador;
@@ -83,6 +87,9 @@ public class Pantalla implements ActionListener{
         ventana.add(txtResultado);
         txtResultado.setEditable(false);
 
+        ventana.add(cantVotantesLbl);
+        ventana.add(cantVotantesTxt);
+
         ventana.setVisible(true);
     }
 
@@ -120,8 +127,10 @@ public class Pantalla implements ActionListener{
         }
 
         if(e.getActionCommand().equals("Resultado")){
-            String partidoGanador = controlador.determinarPartidoGanador();
+            String partidoGanador = controlador.getPartidoGanador();
             txtResultado.setText(partidoGanador);
+            String cantidadTotal = controlador.getCantVotantes();
+            cantVotantesTxt.setText(cantidadTotal);
         }
     }
 
