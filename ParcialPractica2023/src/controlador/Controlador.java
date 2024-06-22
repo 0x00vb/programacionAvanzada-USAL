@@ -7,6 +7,13 @@ public class Controlador {
 	ArrayList<Tecnico> tecnicos = new ArrayList<Tecnico>();
 	ArrayList<Ascensor> ascensores = new ArrayList<Ascensor>();
 	ArrayList<Reparacion> reparaciones = new ArrayList<>();
+	private String arg;
+	
+	public Controlador() {}
+	
+	public Controlador(String arg) {
+		this.arg = arg;
+	}
 	
 	public int cargarReparacion(int codigoAscensor, boolean cambioLuces, boolean cambioBotonera, boolean mejoraEstructura, int dniTecnico) {
 		
@@ -31,7 +38,43 @@ public class Controlador {
 		return null;
 	}
 	
+	public void direcciones() {
+		Random random = new Random();
+		int numRand = random.nextInt(100);
+		Set<String> direcciones = new TreeSet<>();
+		for(Ascensor a : ascensores) {
+			for(Reparacion r : a.getReparaciones()) {
+				if(r.isMejoraEstructura() && r.getCosto() > numRand) {
+					direcciones.add(a.getDireccionEdificio());
+				}
+			}			
+		}
+	}
+	
+	//a) El número y la dirección de los ascensores manuales con el mayor costo total de reparaciones realizadas, haciendo uso de recorridos inversos.
 	public void puntoA() {
+		Ascensor ascensor = null;
+		double costoMayor = 0.0;
+//		List<Ascensor> ascensoresReverser = new ArrayList<Ascensor>(ascensores);
+//		Collections.reverse(ascensoresReverser);
+
+		
+		LinkedList<Ascensor> ascensoresL = new LinkedList<>(ascensores);
+		Iterator<Ascensor> iteradorInverso = ascensoresL.descendingIterator();
+		while(iteradorInverso.hasNext()) {
+			Ascensor a = iteradorInverso.next();
+			if(a.getTipo() == 'm') {
+				double costoTotalR = 0.0;
+				for(Reparacion r : a.getReparaciones()) {
+					costoTotalR += r.getCosto();
+				}
+				if(costoTotalR > costoMayor)
+					costoMayor = costoTotalR;
+				ascensor = a;
+			}
+		}
+		
+		System.out.printf("num: %d, dir: %s", ascensor.getCodigo(), ascensor.getDireccionEdificio());
 		
 	}
 	

@@ -3,6 +3,7 @@ package modelo;
 import java.util.Calendar;
 
 public class Reparacion {
+	private static int contador = 0;
 	private int id;
 	private Calendar fecha;
 	private double costo;
@@ -11,17 +12,21 @@ public class Reparacion {
 	private boolean mejoraEstructura;
 	private Tecnico tecnico;
 
-	public Reparacion() {}
+	public Reparacion() {
+		this.id = contador;
+		contador++;
+	}
 
-	public Reparacion(int id, Calendar fecha, double costo, boolean cambioLuces, boolean cambioBotonera,
+	public Reparacion(Calendar fecha, double costo, boolean cambioLuces, boolean cambioBotonera,
 			boolean mejoraEstructura, Tecnico tecnico) {
-		this.id = id;
+		this.id = contador;
 		this.fecha = fecha;
 		this.costo = costo;
 		this.cambioLuces = cambioLuces;
 		this.cambioBotonera = cambioBotonera;
 		this.mejoraEstructura = mejoraEstructura;
 		this.tecnico = tecnico;
+		contador++;
 	}
 
 	public int getId() {
