@@ -1,5 +1,6 @@
 package controlador;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import modelo.Alojamiento;
@@ -7,6 +8,8 @@ import modelo.Cabaña;
 import modelo.Huesped;
 import modelo.Estadia;
 import modelo.Menu;
+import modelo.ServicioBar;
+import modelo.Servicios;
 import modeloDAO.ServicioBarTXT;
 import modeloDAO.LimpiezaTXT;
 import vista.*;
@@ -85,4 +88,61 @@ public class ServiciosControlador {
         	CLIVista.mostrarTexto("Los datos proveidos no coinciden con los de ninguna estadia.");
         }
     }
+    
+    public void mostrarConsumosEstadia(Estadia estadia) {
+    	for(Servicios s : estadia.getServicios()) {
+    		if(s instanceof ServicioBar) {
+    			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+    			String fecha = dateFormat.format(s.getFecha());
+    			CLIVista.mostrarTexto(
+    					"id: " + estadia.getServicios().indexOf(s)
+    					+ "fecha: " + fecha
+    					+ "plato: " + ((ServicioBar)s).getPlato().getNombre()
+    					+ "cantidad: " + ((ServicioBar)s).getCantidad()
+    					+ "nombre Huesped: " + s.getHuesped().getNombre()
+    					);
+    		}
+    	}
+    }
+    
+    public void modificarConsumo() {
+    	CLIVista.mostrarTexto("Ingrese DNI de un huesped");
+    	Huesped huesped = huespedControlador.buscarHuesped(HuespedVista.ingresarDni());
+    	if(huesped == null) {
+        	CLIVista.mostrarTexto("Este huesped no existe!");
+        	return;
+    	}
+    	
+    	Estadia estadia = estadiaControlador.huespedEstadiaVigente(huesped);
+    	if(estadia == null) {
+        	CLIVista.mostrarTexto("Estadia ya finalizada");
+        	return;
+    	}
+    	
+    	mostrarConsumosEstadia(estadia);
+    	CLIVista.mostrarTexto("ingrese id del consumo: ");
+    	int id  = Validaciones.validarInt(0,estadia.getServicios().size());
+    	ServicioBar consumo = null;
+    	if(estadia.getServicios().get(id) instanceof ServicioBar) {
+    		consumo = (ServicioBar) estadia.getServicios().get(id);
+    	}else {
+    		CLIVista.mostrarTexto("id de consumo invalido!");
+    	}
+    	
+    	CLIVista.mostrarTexto("0. Eliminar\n1.modificar cantidad");
+    	int opcion = Validaciones.validarInt(0,1);
+    	switch(opcion) {
+    		case 0:
+    			estadia.getServicios().remove(consumo);
+    			break;
+    		case 1:
+    			CLIVista.mostrarTexto("Ingresar nueva cantidad: ");
+    			int nuevaCantidad = Validaciones.validarInt(0, 5);
+    			consumo.setCantidad(nuevaCantidad);
+    			break;
+    		default:
+    			break;
+    	}    	
+    }   
+    
 }

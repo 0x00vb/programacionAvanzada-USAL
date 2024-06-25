@@ -12,7 +12,7 @@ public class ExcursionControlador {
 	private ArrayList<Excursion> excursiones = excursionesTXT.leerExcurciones();
 	private ArrayList<Estadia> estadias = estadiaControlador.getEstadias();
 	
-	public void inscribirHuesped() {
+	public void inscribirHuespedes() {
 		int cantidadHuespedes = Validaciones.validarInt(0, 6);
 		ArrayList<Huesped> huespedes = new ArrayList<Huesped>();
 		for(int i = 0; i < cantidadHuespedes; i++) {

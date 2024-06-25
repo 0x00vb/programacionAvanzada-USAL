@@ -8,6 +8,7 @@ public class Menu {
     private ServiciosControlador serviciosControlador = new ServiciosControlador();
     private HuespedControlador huespedControlador = new HuespedControlador();
     private MenuControlador menuControlador = new MenuControlador();
+    private ExcursionControlador excursionControlador = new ExcursionControlador();
 
     public Menu(String[] args){
         this.args = args;
@@ -24,7 +25,10 @@ public class Menu {
             System.out.println("5. Número de la cabaña con hidromasaje que solo se haya utilizado en el transcurso del último mes.");
             System.out.println("6. Cantidad de huéspedes que hayan usado el complejo en más de 3 oportunidades. ");
             System.out.println("7.  Información  completa  de  las  unidades  de  alojamiento  ocupadas  incluyendo toda la informacion de sus ocupantes.");
-
+            System.out.println("8. Inscribir huéspedes en una excursión.");
+            System.out.println("9. Generar ficha de excursión.");
+            System.out.println("10. Modificar consumo de servicio.");
+            
             opcion = Validaciones.validarInt(0,6);
             switch (opcion) {
                 case 1:
@@ -48,6 +52,15 @@ public class Menu {
                 case 7:
                     estadiaControlador.metodoAdicional4();
                     break;
+                case 8:
+                	excursionControlador.inscribirHuespedes();
+                	break;
+                case 9:
+                	excursionControlador.generarFichaExcursion();
+                	break;
+                case 10:
+                	serviciosControlador.modificarConsumo();
+                	break;
                 default:
                     break;
             }
