@@ -2,6 +2,8 @@ package controlador;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Set;
+import java.util.TreeSet;
 
 import modelo.*;
 import modelo.Menu;
@@ -15,6 +17,14 @@ public class EstadiaControlador{
     private AlojamientosTXT alojamientosTXT = new AlojamientosTXT();
     private ArrayList<Estadia> estadias = estadiasJSON.leerEstadias();
 
+    public boolean estadiaEnCurso(Estadia e) {
+    	Calendar fechaActual = Calendar.getInstance();
+    	Calendar fechaEgreso = e.getFechaIngreso();
+    	fechaEgreso.add(Calendar.DAY_OF_YEAR, e.getCantidadDias());
+    	
+    	return (e.getFechaIngreso().before(fechaActual) && fechaEgreso.after(fechaActual) ? true : false);
+    }
+    
     public void registrarEstadia(){
     	ArrayList<Huesped> huespedes = huespedControlador.registrarHuespedes();
 
@@ -85,7 +95,31 @@ public class EstadiaControlador{
         }
     }
 
-
+    public boolean pertenecenMismaEstadia(ArrayList<Huesped> huespedes) {
+    	Estadia estadia = huespedEstadiaVigente(huespedes.get(0));
+    	Set<Integer> dnis = new TreeSet<Integer>();
+    	for(Huesped hEstadia : estadia.getHuespedes()) {
+    		dnis.add(hEstadia.getDocumento());
+    	}
+    	for(Huesped h : huespedes) {
+    		if(!dnis.contains(h.getDocumento())) return false;
+    	}
+    	return true;
+    }
+    
+    public Estadia huespedEstadiaVigente(Huesped huesped) {
+    	for(Estadia e : estadias) {
+    		if(e != null && estadiaEnCurso(e)) {
+    			for(Huesped h : e.getHuespedes()) {
+    				if(h.getDocumento() == huesped.getDocumento()) {
+    					return e;
+    				}
+    			}
+    		}
+    	}
+    	return null;
+    }
+    
     public Estadia buscarEstadia(int idAlojamiento, int dniHuesped) {
         for (Estadia estadia : estadias) {
             if (estadia.getAlojamiento().getId() == idAlojamiento) {

@@ -10,9 +10,9 @@ import java.text.SimpleDateFormat;
 import modelo.*;
 
 public class ExcursionesJSON {
-	public void escribirExcursion(Excursion excursion, HashMap<Integer, String> participantes) {
+	public void escribirExcursion(Excursion excursion, Estadia estadia, InscripcionExcursiones inscripcion) {
 		File archivo = null;
-		FileOutputStream archivoSalida = null;
+		OutputStream archivoSalida = null;
 		String nombreArchivo = "./" + excursion.getEncargado().getNombre() + ".txt";
 		try {
 			archivo = new File(nombreArchivo);
@@ -25,12 +25,14 @@ public class ExcursionesJSON {
 			JsonWriter writer = new Json.createWriter(archivoSalida);
 			
 			JsonArrayBuilder participantesArrayJson = Json.createArrayBuilder();
-			for(Map.Entry<Integer, String> entry : participantes.entrySet()) {
-				JsonObjectBuilder participantesJson = Json.createObjectBuilder()
-						.add("numeroCabaña", entry.getKey())
-						.add("nombreHuesped", entry.getValue());
-				
+			for(Huesped h : inscripcion.getHuespedes()) {
+				participantesArrayJson.add(h.getNombre());
 			}
+			
+			JsonObject participantesJson = Json.createObjectBuilder()
+					.add("numeroCabaña", estadia.getAlojamiento().getId())
+					.add("participantes", participantesArrayJson)
+					.build();
 			
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
 			String fecha = dateFormat.format(Calendar.getInstance());
@@ -38,7 +40,7 @@ public class ExcursionesJSON {
 			JsonObject excursionJson = Json.createObjectBuilder()
 					.add("nombreExcursion", excursion.getNombre())
 					.add("fecha", fecha)
-					.add("participantes", participantesArrayJson)
+					.add("participantes", participantesJson)
 					.build();
 			
 			excursiones.add(excursionJson);

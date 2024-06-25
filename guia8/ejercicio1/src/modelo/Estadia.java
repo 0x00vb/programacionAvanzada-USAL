@@ -83,6 +83,13 @@ public class Estadia implements ICalculable{
     	servicios.add(servicioBar);
     }
 
+    public void addInscripcionExcursion(Excursion excursion, ArrayList<Huesped> huespedes) {
+    	InscripcionExcursiones inscripcion = new InscripcionExcursiones();
+    	inscripcion.setExcursion(excursion);
+    	inscripcion.setHuespedes(huespedes);
+    	
+    }
+    
     public static int getContador() {
         return contadorEstadias;
     }
