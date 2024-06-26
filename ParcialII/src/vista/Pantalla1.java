@@ -3,6 +3,7 @@ package vista;
 import javax.swing.*;
 
 import Controlador.*;
+import modelo.PesoExcedidoException;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -30,6 +31,9 @@ public class Pantalla1 implements ActionListener{
 
 	private JButton botonRegistrar;
 	
+	private JLabel lblCostoAdicional = new JLabel("Costo adicional");
+	private JTextField txtCostoAdicional = new JTextField(20);
+	
 	public Pantalla1() {
 		ventana.setSize(1000,300);
 		ventana.setLayout(new FlowLayout());
@@ -52,7 +56,8 @@ public class Pantalla1 implements ActionListener{
 		ventana.add(comboTipoValija);
 		ventana.add(lblPesoE);
 		ventana.add(txtPesoEquipaje);
-		
+		ventana.add(lblCostoAdicional);
+		ventana.add(txtCostoAdicional);
 		ventana.add(botonCargaEquipaje);
 
 		ventana.add(botonRegistrar);
@@ -77,6 +82,19 @@ public class Pantalla1 implements ActionListener{
 		
 		if(e.getActionCommand().equals("Registrar")) {
 			PasajerosControlador pc = new PasajerosControlador();
+			String nombre = txtNombre.getText();
+			String apellido = txtApellido.getText();
+			int numCamarote = Integer.parseInt(txtNumeroCamarote.getText());
+			
+			try {
+				double respuesta = pc.registrarPasajero(nombre, apellido, numCamarote, equipajes);
+				if(respuesta != 0.0) {
+					txtCostoAdicional.setText("" + respuesta);
+				}
+				
+			} catch (PesoExcedidoException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	

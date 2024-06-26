@@ -139,10 +139,20 @@ public class Controlador {
     }
 
     public List<Mesa> puntoC(){
-        ArrayList<Mesa> mesas = new ArrayList<Mesa>();
+        ArrayList<Mesa> mesasOrd = mesas;
+
+        mesasOrd.sort((m0, m1) -> Integer.compare(m1.getVotosPartidoA() + m1.getVotosPartidoB(), m0.getVotosPartidoA() + m0.getVotosPartidoB()));
+        mesasOrd
+            .stream().limit(3).
+            sorted((m0, m1) -> Integer.compare( m1.getNumero(), m0.getNumero() )).toArray();
 
 
 
+
+
+
+        mesasOrd.stream().limit(3);
+        return mesasOrd;
     }
 
     public Map<Integer, Integer> puntoD(){

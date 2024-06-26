@@ -69,4 +69,74 @@ public class CamarotesJSON {
 
 		return camarotes;
 	}
+	
+	public ArrayList<Camarote> leerCamarotesNormal(){
+		ArrayList<Camarote> camarotes = new ArrayList<Camarote>();
+		try {
+			File archivo = new File("camarotes.json");
+			InputStream archivoEntrada = new FileInputStream(archivo);
+			
+			JsonReader jsonReader = Json.createReader(archivoEntrada);
+			JsonArray arrayCamarotes = jsonReader.readArray();
+			
+			for(JsonValue camaroteValue : arrayCamarotes) {
+				JsonObject camaroteObj = camaroteValue.asJsonObject();
+				Camarote camarote = new Camarote();
+				camarote.setNumero(camaroteObj.getInt("numero"));
+				camarote.setPiso(camaroteObj.getInt("piso"));
+				camarote.setPesoMax(Double.parseDouble(camaroteObj.getString("pesoMax")));
+				
+				JsonArray arrayComodidades = camaroteObj.getJsonArray("comodidades");
+				ArrayList<String> comodidades = new ArrayList<String>();
+				for(JsonValue cVal : arrayComodidades) {
+					comodidades.add(cVal.toString());
+				}
+				camarote.setComodidades(comodidades);
+				camarotes.add(camarote);
+			}			
+		}catch(IOException err) {
+			err.printStackTrace();
+		}
+		return camarotes;
+	}
+	
+	public void escribirNormal(Camarote camarote) {
+		try {
+			File archivo = new File("camartoes.json");
+			InputStream archivoEntrada = new FileInputStream(archivo);
+			
+			JsonReader reader = Json.createReader(archivoEntrada);
+			JsonArray oldJsonArray = reader.readArray();
+			reader.close();
+			archivoEntrada.close();
+			
+			JsonArrayBuilder arrayComodidades = Json.createArrayBuilder();
+			for(String c : camarote.getComodidades()) {
+				arrayComodidades.add(c);
+			}
+			
+			
+			JsonObject camaroteObj = Json.createObjectBuilder()
+					.add("numero", camarote.getNumero())
+					.add("piso", camarote.getPiso())
+					.add("pesoMax", camarote.getPesoMax())
+					.add("comodidades", arrayComodidades)
+					.build();
+			
+			JsonArray newJsonArray = Json.createArrayBuilder(oldJsonArray)
+				.add(camaroteObj)
+				.build();
+			
+			OutputStream archivoSalida = new FileOutputStream(archivo);
+			JsonWriter writer = Json.createWriter(archivoSalida);
+			writer.write(newJsonArray);
+			writer.close();
+			archivoSalida.close();
+		}catch(IOException err) {
+			err.printStackTrace();
+		}
+	}
+	
+	
+	
 }

@@ -7,7 +7,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 
 public class PasajerosTXT {
-	public ArrayList<Pasajero> leerPasajeros(){
+	public static ArrayList<Pasajero> leerPasajeros(){
 		ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
 		File archivo = null;
 		

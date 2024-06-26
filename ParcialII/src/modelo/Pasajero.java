@@ -11,15 +11,17 @@ public class Pasajero {
 	private Camarote camarote;
 	private ArrayList<Equipaje> equipaje;
 	private Calendar FechaRegistro;
+	private static int contador = 0;
 	
 	public Pasajero() {}
 	
-	public Pasajero(int codigoID, String nombre, String apellido, Camarote camarote) {
+	public Pasajero(String nombre, String apellido, Camarote camarote) {
 		this();
-		this.codigoID = codigoID;
+		this.codigoID = contador;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.camarote = camarote;
+		contador++;
 	}
 
 	public int getCodigoID() {
@@ -70,5 +72,18 @@ public class Pasajero {
 		FechaRegistro = fechaRegistro;
 	}
 	
+	public double calcularCostoAdicional() {
+		double x = 0.0;
+		double pesoTotal = 0.0;
+		for(Equipaje e : equipaje) {
+			pesoTotal = e.getPeso();
+		}
+		
+		if(pesoTotal > camarote.getPesoMax()) {
+			double pesoExcedente = pesoTotal - camarote.getPesoMax();
+			x = 10 * pesoExcedente;
+		}
+		return x;
+	}
 	
 }
