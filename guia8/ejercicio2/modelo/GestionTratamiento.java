@@ -1,7 +1,9 @@
-package ejercicio2;
+package modelo;
 import java.util.*;
 
-class GestionTratamiento {
+import controlador.NotFoundException;
+
+public class GestionTratamiento {
     private ArrayList<Integer> valoresEnteros;
     private ArrayList<Tratamiento> tratamientos;
 
