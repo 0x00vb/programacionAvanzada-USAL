@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.*;
 
 public class Controlador{
-    public void method1(){
+    public void method1() throws NotFoundException{
         GestionTratamiento gestion = new GestionTratamiento(10, new Vector<Tratamiento>());
 
         print("Resultados de los métodos:");

@@ -1,4 +1,4 @@
-package ejercicio2;
+package modelo;
 
 public class Tratamiento {
     private String nombre;
