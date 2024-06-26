@@ -5,10 +5,12 @@ import javax.json.*;
 import javax.json.stream.*;
 
 import controlador.Controlador;
-
+import javax.json.stream.JsonParser;
+import javax.json.stream.JsonParser.Event;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 public class AscensoresJSON {
 	public ArrayList<Ascensor> leerAscensores() throws Excepcion, ParseException{
 		Controlador controlador = new Controlador();
@@ -64,4 +66,70 @@ public class AscensoresJSON {
 		
 		return ascensores;
 	}
+	
+	
+//	public ArrayList<Ascensor> leerAscensoresParser() throws ParseException{
+//		Controlador controlador = new Controlador();
+//		ArrayList<Ascensor> ascensores = new ArrayList<>();
+//		File archivo = null;
+//		InputStream archivoEntrada = null;
+//
+//		try {
+//			archivo = new File("ascensores.json");
+//			archivoEntrada = new FileInputStream(archivo);
+//
+//			JsonParser jsonParser = Json.createParser(archivoEntrada);
+//			
+//			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+//			Ascensor ascensor = null;
+//			String keyName = null;
+//			
+//			
+//			while(jsonParser.hasNext()) {
+//				Event event = jsonParser.next();
+//				switch(event) {
+//					case START_OBJECT:
+//						if(ascensor == null) ascensor = new Ascensor();
+//						break;
+//					case END_OBJECT:
+//						
+//						break;
+//					case KEY_NAME:
+//						keyName = jsonParser.getString();
+//						break;
+//					case VALUE_STRING:
+//						switch(keyName) {
+//						case "direccion":
+//							ascensor.setDireccionEdificio(jsonParser.getString());
+//							break;
+//						case "tipo":
+//							ascensor.setTipo(jsonParser.getString().charAt(0));
+//							break;
+//						default:
+//							break;
+//						}
+//					
+//					case VALUE_NUMBER:
+//						switch(keyName) {
+//						case "codigo":
+//							ascensor.setCodigo(jsonParser.getInt());
+//							break;
+//						case "dniTec":
+//							ascensor.getReparaciones()
+//						}
+//						
+//					default:
+//						break;
+//				}
+//				
+//			}			
+//		}catch(IOException err) {
+//			err.printStackTrace();
+//		}
+//		return ascensores;
+//		
+//		
+//		
+//	}
+
 }

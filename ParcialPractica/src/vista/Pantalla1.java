@@ -54,6 +54,7 @@ public class Pantalla1 implements ActionListener{
 		
 		lblNumeroCochera = new JLabel("Numero cochera");
 		comboNumeroCochera = new JComboBox<Integer>();
+		comboNumeroCochera.addActionListener(this);
 		
 		lblLlaves = new JLabel("Deja llaves:");
 		grupoBotonesLlaves = new ButtonGroup();
@@ -113,7 +114,7 @@ public class Pantalla1 implements ActionListener{
 		if(e.getActionCommand().equals("cargar")) {
 			int patente = Integer.parseInt(txtPatente.getText());
 			String tipo = (String) comboTipo.getSelectedItem();
-			int numeroCochera = Integer.parseInt(txtCantHoras.getText());
+			int numeroCochera = (int) comboNumeroCochera.getSelectedItem();
 			int cantidadHoras = Integer.parseInt(txtCantHoras.getText());
 			boolean llaves = llavesSi.isSelected();
 			boolean pagaAdelantado = pagoSi.isSelected();
