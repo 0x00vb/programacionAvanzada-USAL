@@ -34,7 +34,7 @@ public class PasajerosControlador {
 		Pasajero p = pasajeros.get(indexRandom);
 		boolean viajoMasDeUnaVez = false;
 		for(Pasajero pasajero : pasajeros) {
-			if(p.getApellido().equals(pasajero.getApellido()) && pasajeros.indexOf(pasajero) != indexAleatorio) {
+			if(p.getApellido().equals(pasajero.getApellido()) && pasajeros.indexOf(pasajero) != indexRandom) {
 				viajoMasDeUnaVez = true;
 			}
 		}
@@ -44,5 +44,4 @@ public class PasajerosControlador {
 	public ArrayList<Pasajero> getPasajeros(){
 		return this.pasajeros;
 	}
-	
 }

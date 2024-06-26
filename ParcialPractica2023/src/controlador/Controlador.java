@@ -53,27 +53,70 @@ public class Controlador {
 	
 	//a) El número y la dirección de los ascensores manuales con el mayor costo total de reparaciones realizadas, haciendo uso de recorridos inversos.
 	public void puntoA() {
-		Ascensor ascensor = null;
-		double costoMayor = 0.0;
+		ArrayList<Ascensor> ascensoresManuales = new ArrayList<Ascensor>();
+		ListIterator<Ascensor> iteradorInverso = ascensores.listIterator(ascensores.size());
+		while(iteradorInverso.hasPrevious()) {
+			Ascensor a = iteradorInverso.previous();
+			if(a.getTipo() == 'm') ascensoresManuales.add(a);
+		}
+		
+		ascensoresManuales.sort(
+				(a,b) -> Integer.compare(b, a)
+		)
+		
+		
+		
+		
+		
+		
+		
+//		ArrayList<Ascensor> ascensoresCostoMayor = new ArrayList<Ascensor>();
+//		double costoMayor = 0.0;
+//		
+//		
+//		ListIterator<Ascensor> iterador = ascensores.listIterator(ascensores.size());
+//		while(iterador.hasPrevious()) {
+//			Ascensor a = iterador.previous();
+//			if(a.getTipo() == 'm') {
+//				double costoTotalReparaciones = 0.0;
+//				for(Reparacion r : a.getReparaciones()) {
+//					costoTotalReparaciones += r.getCosto();
+//				}
+//				if(costoTotalReparaciones > costoMayor){
+//					costoMayor = costoTotalReparaciones;
+//					ascensoresCostoMayor.add(a);
+//				}
+//			}
+		
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
 //		List<Ascensor> ascensoresReverser = new ArrayList<Ascensor>(ascensores);
 //		Collections.reverse(ascensoresReverser);
 
 		
-		LinkedList<Ascensor> ascensoresL = new LinkedList<>(ascensores);
-		Iterator<Ascensor> iteradorInverso = ascensoresL.descendingIterator();
-		while(iteradorInverso.hasNext()) {
-			Ascensor a = iteradorInverso.next();
-			if(a.getTipo() == 'm') {
-				double costoTotalR = 0.0;
-				for(Reparacion r : a.getReparaciones()) {
-					costoTotalR += r.getCosto();
-				}
-				if(costoTotalR > costoMayor)
-					costoMayor = costoTotalR;
-				ascensor = a;
-			}
-		}
-		
+//		LinkedList<Ascensor> ascensoresL = new LinkedList<>(ascensores);
+//		Iterator<Ascensor> iteradorInverso = ascensoresL.descendingIterator();
+//		while(iteradorInverso.hasNext()) {
+//			Ascensor a = iteradorInverso.next();
+//			if(a.getTipo() == 'm') {
+//				double costoTotalR = 0.0;
+//				for(Reparacion r : a.getReparaciones()) {
+//					costoTotalR += r.getCosto();
+//				}
+//				if(costoTotalR > costoMayor)
+//					costoMayor = costoTotalR;
+//				ascensor = a;
+//			}
+//		}
+//		
 		System.out.printf("num: %d, dir: %s", ascensor.getCodigo(), ascensor.getDireccionEdificio());
 		
 	}
