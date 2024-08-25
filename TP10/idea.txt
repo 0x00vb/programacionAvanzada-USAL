@@ -1,0 +1,37 @@
+Para este proyecto, podrías desarrollar una aplicación que gestione una biblioteca de música. La entidad principal sería una canción, y las derivadas podrían ser álbum y artista. Así, la aplicación permitirá gestionar canciones y vincularlas con sus álbumes y artistas correspondientes. Esta temática te da una amplia gama de atributos que puedes utilizar, además de ser fácil de implementar y entender.
+Concepto:
+
+La aplicación será capaz de realizar las siguientes operaciones sobre canciones:
+
+    Ingreso de canciones: Registro de una nueva canción con su título, duración, género, álbum y artista.
+    Consulta y actualización: Buscar canciones por nombre o álbum para modificarlas o eliminarlas.
+    Consulta masiva: Filtrar canciones por artista o género y mostrar una lista de todas las canciones que coincidan.
+    Estadísticas: Mostrar estadísticas sobre la cantidad total de canciones, géneros más populares y duración total de canciones ingresadas en los últimos 6 meses.
+
+Clases:
+
+    Canción (entidad principal)
+        Atributos:
+            String titulo
+            String genero
+            int duracion (en segundos)
+            Album album
+            Artista artista
+        Métodos:
+            boolean validarCancion() (verifica si ya existe la canción)
+            guardarCancion() (guarda la canción en un archivo TXT)
+
+    Album (entidad derivada)
+        Atributos:
+            String nombre
+            int año
+            Artista artista
+        Métodos:
+            guardarAlbum()
+
+    Artista (entidad derivada)
+        Atributos:
+            String nombre
+            String nacionalidad
+        Métodos:
+            guardarArtista()
