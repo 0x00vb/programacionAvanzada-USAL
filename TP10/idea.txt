@@ -1,37 +1,69 @@
-Para este proyecto, podrías desarrollar una aplicación que gestione una biblioteca de música. La entidad principal sería una canción, y las derivadas podrían ser álbum y artista. Así, la aplicación permitirá gestionar canciones y vincularlas con sus álbumes y artistas correspondientes. Esta temática te da una amplia gama de atributos que puedes utilizar, además de ser fácil de implementar y entender.
-Concepto:
+Concepto: Aplicación para Gestión de un Taller Mecánico
 
-La aplicación será capaz de realizar las siguientes operaciones sobre canciones:
+La aplicación gestionará la información relacionada con un taller mecánico, permitiendo el ingreso, consulta y actualización de datos sobre los vehículos que ingresan para reparación, los clientes del taller y las reparaciones realizadas. Además, se incluirán funcionalidades de estadísticas y un menú de sistema con información sobre la aplicación.
+Entidades Principales:
 
-    Ingreso de canciones: Registro de una nueva canción con su título, duración, género, álbum y artista.
-    Consulta y actualización: Buscar canciones por nombre o álbum para modificarlas o eliminarlas.
-    Consulta masiva: Filtrar canciones por artista o género y mostrar una lista de todas las canciones que coincidan.
-    Estadísticas: Mostrar estadísticas sobre la cantidad total de canciones, géneros más populares y duración total de canciones ingresadas en los últimos 6 meses.
+    Vehículo: Representa los automóviles que ingresan al taller.
+    Cliente: Representa a los propietarios de los vehículos.
+    Reparación: Registra las reparaciones realizadas a los vehículos en el taller.
 
 Clases:
 
-    Canción (entidad principal)
+    Clase Vehículo:
         Atributos:
-            String titulo
-            String genero
-            int duracion (en segundos)
-            Album album
-            Artista artista
+            patente (String): Identificación única del vehículo.
+            marca (String): Marca del vehículo.
+            modelo (String): Modelo del vehículo.
+            año (int): Año de fabricación.
+            cliente (Cliente): Relación de agregación con la clase Cliente.
         Métodos:
-            boolean validarCancion() (verifica si ya existe la canción)
-            guardarCancion() (guarda la canción en un archivo TXT)
+            getPatente(), setPatente()
+            getMarca(), setMarca()
+            getModelo(), setModelo()
+            getAño(), setAño()
+            getCliente(), setCliente()
 
-    Album (entidad derivada)
+    Clase Cliente:
         Atributos:
-            String nombre
-            int año
-            Artista artista
+            nombre (String): Nombre del cliente.
+            apellido (String): Apellido del cliente.
+            DNI (String): Documento del cliente.
+            telefono (String): Teléfono de contacto.
+            direccion (String): Dirección del cliente.
         Métodos:
-            guardarAlbum()
+            getNombre(), setNombre()
+            getApellido(), setApellido()
+            getDNI(), setDNI()
+            getTelefono(), setTelefono()
+            getDireccion(), setDireccion()
 
-    Artista (entidad derivada)
+    Clase Reparación:
         Atributos:
-            String nombre
-            String nacionalidad
+            codigoReparacion (String): Código identificador de la reparación.
+            vehiculo (Vehículo): Relación de composición con la clase Vehículo.
+            tipoReparacion (String): Tipo de reparación realizada (ej. Cambio de aceite, Frenos, etc.).
+            costo (double): Costo de la reparación.
+            fechaIngreso (LocalDate): Fecha en que el vehículo ingresó al taller.
+            fechaEntrega (LocalDate): Fecha en que el vehículo fue entregado al cliente.
         Métodos:
-            guardarArtista()
+            getCodigoReparacion(), setCodigoReparacion()
+            getVehiculo(), setVehiculo()
+            getTipoReparacion(), setTipoReparacion()
+            getCosto(), setCosto()
+            getFechaIngreso(), setFechaIngreso()
+            getFechaEntrega(), setFechaEntrega()
+
+    Clase TallerMecanico (Controlador/MVC):
+        Atributos:
+            listaVehiculos (List<Vehículo>): Lista de vehículos registrados en el taller.
+            listaClientes (List<Cliente>): Lista de clientes.
+            listaReparaciones (List<Reparación>): Lista de reparaciones realizadas.
+        Métodos:
+            agregarVehiculo()
+            buscarVehiculo()
+            actualizarVehiculo()
+            registrarReparacion()
+            consultarReparaciones()
+            eliminarVehiculo()
+
+Este concepto de un taller mecánico cubre el ingreso de nuevos vehículos, el registro de clientes, la consulta y actualización de reparaciones realizadas, y otras operaciones necesarias para la gestión de un taller.
