@@ -8,7 +8,9 @@ import java.awt.event.*;
 
 public class ConsultaVista extends JPanel {
     private JTextField txtCod, txtTipoReparacion, txtCosto, txtFechaIngreso, txtFechaEntrega;
+    private JCheckBox chkLavado, chkEntregaRapida;
     private JButton btnBuscar, btnEditar, btnAnular, btnAceptar, btnCancelar;
+    
     private ConsultaControlador consultaControlador;
 
     public ConsultaVista(ReparacionControlador reparacionControlador) {
@@ -40,6 +42,14 @@ public class ConsultaVista extends JPanel {
         add(new JLabel("Fecha de entrega:"));
         add(txtFechaEntrega);
         
+        chkLavado = new JCheckBox("Incluye lavado");
+        chkLavado.setEnabled(false);
+        add(chkLavado);
+
+        chkEntregaRapida = new JCheckBox("Entrega rápida");
+        chkEntregaRapida.setEnabled(false);
+        add(chkEntregaRapida);
+
         btnBuscar = new JButton("Buscar");
         btnBuscar.addActionListener(e -> consultaControlador.buscarReparacion());
         add(btnBuscar);
@@ -72,6 +82,8 @@ public class ConsultaVista extends JPanel {
     public JTextField getTxtCosto() { return txtCosto; }
     public JTextField getTxtFechaEntrega() { return txtFechaEntrega; }
     public JTextField getTxtFechaIngreso() { return txtFechaIngreso; }
+    public JCheckBox getChkLavado() { return chkLavado; }
+    public JCheckBox getChkEntregaRapida() { return chkEntregaRapida; }
     public JButton getBtnAceptar() { return btnEditar; }
     public JButton getBtnCancelar() { return btnAceptar; }
     public JButton getBtnEditar() { return btnCancelar; }

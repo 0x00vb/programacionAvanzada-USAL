@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import modelo.*;
-import vista.ConsultaVista;
 
 public class ReparacionControlador {
     private ArrayList<Reparacion> reparaciones = null;
@@ -23,6 +22,34 @@ public class ReparacionControlador {
         }
     }
 
+    public int registrarReparacion(String patente, String descripcion, String fechaDevolucionStr, ArrayList<String> repuestosStr, String marcaRep, boolean lavado, boolean entregaRapida, double costo){
+
+        Vehiculo v = vehiculoControlador.buscarVehiculo(patente);
+        Calendar fechaIngreso = Calendar.getInstance();
+        Calendar fechaDevolucion = Calendar.getInstance();
+        ArrayList<Repuesto> repuestos = new ArrayList<>();
+        try {
+            fechaDevolucion.setTime( dateFormat.parse(fechaDevolucionStr) );
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        for(Vehiculo ve : vehiculoControlador.getVehiculos()){
+            for(Reparacion r : ve.getReparaciones()){
+                if(r.getFechaEntrega() == fechaIngreso && r.getFechaEntrega() == fechaDevolucion){
+                    return -1;
+                }
+            }
+        }
+
+        for(String val : repuestosStr){
+            repuestos.add(repuestoControlador.buscarRepuesto(val, marcaRep));
+        }
+
+        v.agregarReparación(descripcion, costo, fechaIngreso, fechaDevolucion, repuestos, lavado, entregaRapida);
+        return 0;
+    }  
+
     public Reparacion buscarReparacion(int codReparacion){
         for(Reparacion r : reparaciones){
             if(r.getCodigoReparacion() == codReparacion){
@@ -37,5 +64,8 @@ public class ReparacionControlador {
         if (reparacionAEliminar != null) {
             reparaciones.remove(reparacionAEliminar);
         }
+    }
+    public ArrayList<Reparacion> getReparaciones(){
+        return this.reparaciones;
     }
 }

@@ -15,12 +15,12 @@ public class RepuestosTXT {
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine();
                 
-                // Suponiendo que el formato es: NombreDelRepuesto (20 chars) Código (5 chars) Costo (resto)
                 String nombre = linea.substring(0, 20).trim();
                 int codigo = Integer.parseInt(linea.substring(20, 25).trim());
-                double costo = Double.parseDouble(linea.substring(25).trim());
+                double costo = Double.parseDouble(linea.substring(25, 30).trim());
+                String marca = linea.substring(30).trim();
 
-                Repuesto repuesto = new Repuesto(nombre, codigo, costo);
+                Repuesto repuesto = new Repuesto(nombre, codigo, costo, marca);
                 repuestos.add(repuesto);
             }
         }

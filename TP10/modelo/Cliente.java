@@ -5,10 +5,10 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private int dni;
-    private String telefono;
+    private int telefono;
     private String direccion;
 
-    public Cliente(String nombre, String apellido, int dni, String telefono, String direccion){
+    public Cliente(String nombre, String apellido, int dni, int telefono, String direccion){
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -25,9 +25,13 @@ public class Cliente {
     public int getDNI() { return dni; }
     public void setDNI(int dni) { this.dni = dni; }
 
-    public String getTelefono() { return telefono; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public int getTelefono() { return telefono; }
+    public void setTelefono(int telefono) { this.telefono = telefono; }
 
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
+
+    public double sumaAtributos(){
+        return dni + telefono; 
+    }
 }

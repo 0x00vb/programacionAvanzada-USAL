@@ -2,6 +2,7 @@ import vista.Pantalla;
 
 public class Main{
 	public static void main(String[] args){
-		new Pantalla();
+		int arg = Integer.parseInt(args[0]);
+		new Pantalla(arg);
 	}
 }

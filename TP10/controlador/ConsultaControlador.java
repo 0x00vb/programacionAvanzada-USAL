@@ -51,6 +51,8 @@ public class ConsultaControlador {
         vista.getTxtFechaEntrega().setEditable(true);
         vista.getBtnAceptar().setEnabled(true);
         vista.getBtnCancelar().setEnabled(true);
+        vista.getChkLavado().setEnabled(true);
+        vista.getChkEntregaRapida().setEnabled(true);
     }
 
     public void cancelarEdicion() {
@@ -59,6 +61,8 @@ public class ConsultaControlador {
         vista.getTxtFechaEntrega().setEditable(false);
         vista.getBtnAceptar().setEnabled(false);
         vista.getBtnCancelar().setEnabled(false);
+        vista.getChkLavado().setEnabled(false);
+        vista.getChkEntregaRapida().setEnabled(false);
         limpiarCampos();
     }
 
@@ -66,7 +70,8 @@ public class ConsultaControlador {
         if (reparacionActual != null) {
             reparacionActual.setTipoReparacion(vista.getTxtTipoReparacion().getText());
             reparacionActual.setCosto(Double.parseDouble(vista.getTxtCosto().getText()));
-
+            reparacionActual.setLavado(vista.getChkLavado().isSelected());
+            reparacionActual.setEntregaRapida(vista.getChkEntregaRapida().isSelected());
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 reparacionActual.setFechaEntrega(Calendar.getInstance());

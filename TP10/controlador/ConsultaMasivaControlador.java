@@ -12,12 +12,12 @@ public class ConsultaMasivaControlador {
 
     public ConsultaMasivaControlador(ConsultaMasivaVista vista){
         this.vista = vista;
-        this.vista.getBtn().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buscarReparaciones();
-            }
-        });
+        // this.vista.getBtn().addActionListener(new ActionListener() {
+        //     @Override
+        //     public void actionPerformed(ActionEvent e) {
+        //         buscarReparaciones();
+        //     }
+        // });
     }
 
     public void buscarReparaciones(){

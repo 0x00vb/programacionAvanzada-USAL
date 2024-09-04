@@ -21,7 +21,7 @@ public class Pantalla implements ActionListener{
     private ConsultaMasivaVista consultaMasivaVista; 
     private EstadisticaVista estadisticaVista;
 
-    public Pantalla(){
+    public Pantalla(int arg){
         ventana.setSize(800, 600);
         ventana.setTitle("Sistema de gestion taller");
         ventana.setLayout( new BorderLayout() );
@@ -31,13 +31,13 @@ public class Pantalla implements ActionListener{
         ingresoVista = new IngresoVista();   
         vistaAcercaDe = new VistaAcercaDe();
         consultaVista = new ConsultaVista(new ReparacionControlador());
-        estadisticaVista = new EstadisticaVista();
+        estadisticaVista = new EstadisticaVista(arg);
         consultaMasivaVista = new ConsultaMasivaVista();
 
         panel.add(ingresoVista, "Ingreso");
         panel.add(vistaAcercaDe, "AcercaDe");
         panel.add(consultaVista, "Consulta");
-        panel.add(estadisticaVista, "Estadistica");
+        panel.add(estadisticaVista, "Estadisticas");
         panel.add(consultaMasivaVista, "ConsultaMasiva");
 
 
@@ -61,7 +61,7 @@ public class Pantalla implements ActionListener{
         menuBar.add(menuOperaciones);
 
         menuEstadisticas = new JMenu("Estadísticas");
-        JMenuItem menuEstadisticasItem = new JMenuItem("Estadísticas");
+        JMenuItem menuEstadisticasItem = new JMenuItem("Estadisticas");
         menuEstadisticas.add(menuEstadisticasItem);
         menuEstadisticasItem.addActionListener(this);
         menuBar.add(menuEstadisticas);
@@ -90,11 +90,11 @@ public class Pantalla implements ActionListener{
 
         switch (command) {
             case "Ingreso":
-                cardLayout.show(ingresoVista, "Ingreso");
+                cardLayout.show(panel, "Ingreso");
                 titleLabel.setText("Ingreso");
                 break;
             case "Actualizacion":
-                cardLayout.show(consultaVista, "Consulta");
+                cardLayout.show(panel, "Consulta");
                 titleLabel.setText("Consultar y actualizar");
                 break;
             case "Consulta":
@@ -104,8 +104,8 @@ public class Pantalla implements ActionListener{
             case "Acerca de...":
                 cardLayout.show(panel, "AcercaDe");
                 break;
-            case "Estadistica":
-                cardLayout.show(panel, "Estadistica");
+            case "Estadisticas":
+                cardLayout.show(panel, "Estadisticas");
                 break;
             case "Salir":
                 int confirm = JOptionPane.showConfirmDialog(

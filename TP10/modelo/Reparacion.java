@@ -16,7 +16,7 @@ public class Reparacion {
     
     public Reparacion() {}
     
-    public Reparacion(String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos) {
+    public Reparacion(String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos, boolean lavado, boolean entregaRapida) {
         contador++;
         this.codigoReparacion = contador;
         this.tipoReparacion = tipoReparacion;
@@ -24,15 +24,19 @@ public class Reparacion {
         this.fechaIngreso = fechaIngreso;
         this.fechaEntrega = fechaEntrega;
         this.repuestos = repuestos;
+        this.lavado = lavado;
+        this.entregaRapida = entregaRapida;
     }
 
-    public Reparacion(int id, String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos) {
+    public Reparacion(int id, String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos, boolean lavado, boolean entregaRapida) {
         this.codigoReparacion = id;
         this.tipoReparacion = tipoReparacion;
         this.costo = costo;
         this.fechaIngreso = fechaIngreso;
         this.fechaEntrega = fechaEntrega;
         this.repuestos = repuestos;
+        this.lavado = lavado;
+        this.entregaRapida = entregaRapida;
     }
     
     public int getCodigoReparacion() { return codigoReparacion; }
@@ -56,23 +60,20 @@ public class Reparacion {
     public boolean isLavado() {
         return this.lavado;
     }
-    
-    public boolean getLavado() {
-        return this.lavado;
-    }
-
     public void setLavado(boolean lavado) {
         this.lavado = lavado;
     }
-    
-    public boolean isEntregaRapida() {
-        return this.entregaRapida;
+    public boolean getLavado() {
+        return this.lavado;
     }
-    
     public boolean getEntregaRapida() {
         return this.entregaRapida;
     }
     public void setEntregaRapida(boolean entregaRapida) {
         this.entregaRapida = entregaRapida;
+    }
+
+    public double sumaAtributos(){
+        return this.codigoReparacion + this.costo;
     }
 }

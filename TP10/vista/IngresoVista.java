@@ -10,17 +10,19 @@ import java.util.ArrayList;
 
 public class IngresoVista extends JPanel implements ActionListener {
 
-    private JTextField txtVehiculo, txtFecha, txtDescripcion;
+    private JTextField txtFecha, txtDescripcion, txtCosto;
     private JButton btnGuardar, btnCancelar;
-    private JComboBox comboMarcaVehiculo = new JComboBox<>();
-    private JComboBox comboModeloVehiculo = new JComboBox<>();
+    private JComboBox<Integer> comboCliente = new JComboBox<>();
+    private JComboBox<String> comboVehiculos = new JComboBox<>();
     private JPanel pnlRepuestos;
     private JTextArea leyenda;
-    private JList<String> listaRepuestosDisponibles, listaRepuestosSeleccionados;
+    private JList<String> listaRepuesto, listaRepuestosSeleccionados;
     private JRadioButton rbMantenimiento, rbReparacion;    
     private JCheckBox chkLavado, chkEntregaRapida;
     private RepuestosControlador repuestosControlador;
     private ReparacionControlador reparacionControlador;
+    private ClienteControlador clienteControlador;
+    private VehiculoControlador vehiculoControlador;
 
     public IngresoVista() {
         setSize(300, 200);
@@ -29,26 +31,27 @@ public class IngresoVista extends JPanel implements ActionListener {
         try {
             repuestosControlador = new RepuestosControlador();
             reparacionControlador = new ReparacionControlador();    
+            clienteControlador = new ClienteControlador();
+            vehiculoControlador = new VehiculoControlador(); 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        txtVehiculo = new JTextField(20);
+        
         txtFecha = new JTextField(20);
         txtDescripcion = new JTextField(20);
-        btnGuardar = new JButton("Guardar");
-        btnCancelar = new JButton("Cancelar");
 
-        // Leyenda
-        leyenda = new JTextArea(3, 30);
-        leyenda.setText("Por favor, ingrese todos los datos de la reparación. Asegúrese de ingresar correctamente la patente del vehículo, e incluir cualquier repuesto necesario.");
-        leyenda.setEditable(false);
-        leyenda.setLineWrap(true);
-        leyenda.setWrapStyleWord(true);
-        add(leyenda);
+        add( new JLabel("seleccionar dni cliente"));
+        add(comboCliente);
+        for(int i : clienteControlador.getDniClientes()){
+            comboCliente.addItem(i);
+        }
+        comboCliente.addActionListener(this);
 
-        add(new JLabel("Patente vehículo:"));
-        add(txtVehiculo);
+        add( new JLabel("seleccionar patente vehiculo"));
+        add(comboVehiculos);
+
+
         add(new JLabel("Fecha regreso:"));
         add(txtFecha);
         add(new JLabel("Descripción:"));
@@ -59,21 +62,10 @@ public class IngresoVista extends JPanel implements ActionListener {
             listModel.addElement(s);
         }
 
-        // Create the JList and set its model
-        JList<String> listaRepuestosDisponibles = new JList<>(listModel);
 
-        listaRepuestosDisponibles.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        listaRepuestosSeleccionados = new JList<>();
-        listaRepuestosSeleccionados.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        add(new JLabel("Repuestos disponibles:"));
-        add(new JScrollPane(listaRepuestosDisponibles));
-        add(new JLabel("Repuestos seleccionados:"));
-        add(new JScrollPane(listaRepuestosSeleccionados));
-
-        // Botones de opciones (radio buttons)
         JPanel panelOpciones = new JPanel();
         rbMantenimiento = new JRadioButton("Mantenimiento");
-        rbReparacion = new JRadioButton("Reparación", true); // Opción por defecto
+        rbReparacion = new JRadioButton("Reparación", true);
         ButtonGroup grupoOpciones = new ButtonGroup();
         grupoOpciones.add(rbMantenimiento);
         grupoOpciones.add(rbReparacion);
@@ -81,11 +73,16 @@ public class IngresoVista extends JPanel implements ActionListener {
         panelOpciones.add(rbReparacion);
         add(panelOpciones);
 
-        // Casillas de verificación
-        chkLavado = new JCheckBox("Incluye lavado", true); // Activa por defecto
+        chkLavado = new JCheckBox("Incluye lavado", true); 
         chkEntregaRapida = new JCheckBox("Entrega rápida");
         add(chkLavado);
         add(chkEntregaRapida);  
+
+        add( new JLabel("Costo mano obra:"));
+        add(txtCosto = new JTextField(20));
+
+        btnGuardar = new JButton("Guardar");
+        btnCancelar = new JButton("Cancelar");
 
         add(btnGuardar);
         add(btnCancelar);
@@ -96,23 +93,55 @@ public class IngresoVista extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnGuardar) {
-            String patente = txtVehiculo.getText();
+            String patente = (String) comboVehiculos.getSelectedItem();
             String fecha = txtFecha.getText();
             String descripcion = txtDescripcion.getText();
-            ArrayList<String> repuestosSeleccionados = new ArrayList<>(listaRepuestosDisponibles.getSelectedValuesList());            
+
+            boolean lavado = chkLavado.isSelected();
+            boolean entregaRapida = chkEntregaRapida.isSelected();       
+            double costo = Double.parseDouble(txtCosto.getText());
 
 
-            // reparacionControlador.registrarReparacion(patente, descripcion, fecha);
+            int resp = reparacionControlador.registrarReparacion(patente, descripcion, fecha, repuestosSeleccionados, descripcion, lavado, entregaRapida, costo);
+            if(resp == -1){
+                JOptionPane.showMessageDialog(this, "Esta reparacion ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                    throw new ExcepcionPropia("Reparacion ya existe");
+                } catch (ExcepcionPropia e1) {
+                    e1.printStackTrace();
+                }
+            }
+        
         } else if (e.getSource() == btnCancelar) {
             int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de cancelar?", "Confirmación", JOptionPane.YES_NO_OPTION);
             if(confirm == JOptionPane.YES_OPTION) {
                 limpiarCampos();
             }
+        } else if(e.getSource() == comboCliente){
+            int dni = (int)comboCliente.getSelectedItem();
+            for(String patente : vehiculoControlador.buscarVehiculoPorCliente(dni)){
+                comboVehiculos.addItem(patente);
+            }
+        }
+
+
+
+    }
+
+    private void actualizarListaRepuestos() {
+        String marcaSeleccionada = listaMarcasRepuestos.getSelectedValue();
+        if (marcaSeleccionada != null) {
+            DefaultListModel<String> repuestosModel = new DefaultListModel<>();
+            for (String repuesto : repuestosControlador.getRepuestosPorMarca(marcaSeleccionada)) {
+                repuestosModel.addElement(repuesto);
+            }
+            listaRepuestos.setModel(repuestosModel);
         }
     }
 
     private void limpiarCampos() {
-        txtVehiculo.setText("");
+        comboCliente.setSelectedItem(null);
+        comboVehiculos.setSelectedItem(null);
         txtFecha.setText("");
         txtDescripcion.setText("");
         pnlRepuestos.removeAll();

@@ -40,15 +40,19 @@ public abstract class Vehiculo {
     public Cliente getCliente() { return this.cliente; }
     
     public List<Reparacion> getReparaciones() { return reparaciones; }
-    public void agregarReparación(String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos) {
-        this.reparaciones.add( new Reparacion(tipoReparacion, costo, fechaIngreso, fechaEntrega, repuestos) );
+    public void agregarReparación(String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos, boolean lavado, boolean entregaRapida) {
+        this.reparaciones.add( new Reparacion(tipoReparacion, costo, fechaIngreso, fechaEntrega, repuestos, lavado, entregaRapida) );
     }
     
-        public Calendar getFechaCarga() {
-            return this.fechaCarga;
-        }
-    
-        public void setFechaCarga(Calendar fechaCarga) {
-            this.fechaCarga = fechaCarga;
-        }
+    public Calendar getFechaCarga() {
+        return this.fechaCarga;
+    }
+
+    public void setFechaCarga(Calendar fechaCarga) {
+        this.fechaCarga = fechaCarga;
+    }
+
+    public double sumaAtributos(){
+        return this.año + this.fechaCarga.get(Calendar.YEAR);
+    }
 }
