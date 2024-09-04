@@ -4,17 +4,30 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Reparacion {
-    private String codigoReparacion;
+    private static int contador = 0;
+    private int codigoReparacion;
     private String tipoReparacion;
     private double costo;
     private Calendar fechaIngreso;
-    private Calendar fechaEntrega;
+    private Calendar fechaEntrega;  
+    private boolean lavado;
+    private boolean entregaRapida;
     private ArrayList<Repuesto> repuestos;
-
+    
     public Reparacion() {}
+    
+    public Reparacion(String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos) {
+        contador++;
+        this.codigoReparacion = contador;
+        this.tipoReparacion = tipoReparacion;
+        this.costo = costo;
+        this.fechaIngreso = fechaIngreso;
+        this.fechaEntrega = fechaEntrega;
+        this.repuestos = repuestos;
+    }
 
-    public Reparacion(String codigoReparacion, String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos) {
-        this.codigoReparacion = codigoReparacion;
+    public Reparacion(int id, String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos) {
+        this.codigoReparacion = id;
         this.tipoReparacion = tipoReparacion;
         this.costo = costo;
         this.fechaIngreso = fechaIngreso;
@@ -22,8 +35,8 @@ public class Reparacion {
         this.repuestos = repuestos;
     }
     
-    public String getCodigoReparacion() { return codigoReparacion; }
-    public void setCodigoReparacion(String codigoReparacion) { this.codigoReparacion = codigoReparacion; }
+    public int getCodigoReparacion() { return codigoReparacion; }
+    public void setCodigoReparacion(int codigoReparacion) { this.codigoReparacion = codigoReparacion; }
 
     public String getTipoReparacion() { return tipoReparacion; }
     public void setTipoReparacion(String tipoReparacion) { this.tipoReparacion = tipoReparacion; }
@@ -39,5 +52,27 @@ public class Reparacion {
 
     public ArrayList<Repuesto> getRepuestos() { return repuestos; }
     public void setRepuestos(ArrayList<Repuesto> repuestos) { this.repuestos = repuestos; }
+    
+    public boolean isLavado() {
+        return this.lavado;
+    }
+    
+    public boolean getLavado() {
+        return this.lavado;
+    }
 
+    public void setLavado(boolean lavado) {
+        this.lavado = lavado;
+    }
+    
+    public boolean isEntregaRapida() {
+        return this.entregaRapida;
+    }
+    
+    public boolean getEntregaRapida() {
+        return this.entregaRapida;
+    }
+    public void setEntregaRapida(boolean entregaRapida) {
+        this.entregaRapida = entregaRapida;
+    }
 }

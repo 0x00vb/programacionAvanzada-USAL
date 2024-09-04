@@ -1,5 +1,4 @@
 package modelo;
-
 import java.util.ArrayList;
 
 public class Cliente {
@@ -8,11 +7,6 @@ public class Cliente {
     private int dni;
     private String telefono;
     private String direccion;
-    private ArrayList<Vehiculo> vehiculos;
-
-    public Cliente(){
-        this.vehiculos = new ArrayList<>();
-    }
 
     public Cliente(String nombre, String apellido, int dni, String telefono, String direccion){
         this.nombre = nombre;
@@ -36,15 +30,4 @@ public class Cliente {
 
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
-
-
-    public ArrayList<Vehiculo> getVehiculos() { return this.vehiculos; }
-    public void setVehiculos(ArrayList<Vehiculo> vehiculos) { this.vehiculos = vehiculos; }
-    public void addAuto(String patente, String marca, String modelo, int año, int numeroPuertas, String tipoCombustible){
-        this.vehiculos.add( new Auto(patente, marca, modelo, año, numeroPuertas, tipoCombustible) );
-    }
-
-    public void addMoto( String patente, String marca, String modelo, int año, int cilindrada, boolean tieneSidecar){
-        this.vehiculos.add( new Moto(patente, marca, modelo, año, cilindrada, tieneSidecar) );
-    }
 }
