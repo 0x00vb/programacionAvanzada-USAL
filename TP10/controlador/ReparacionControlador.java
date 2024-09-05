@@ -22,7 +22,7 @@ public class ReparacionControlador {
         }
     }
 
-    public int registrarReparacion(String patente, String descripcion, String fechaDevolucionStr, ArrayList<String> repuestosStr, String marcaRep, boolean lavado, boolean entregaRapida, double costo){
+    public int registrarReparacion(String patente, String descripcion, String fechaDevolucionStr, ArrayList<String> repuestosStr, boolean lavado, boolean entregaRapida, double costo){
 
         Vehiculo v = vehiculoControlador.buscarVehiculo(patente);
         Calendar fechaIngreso = Calendar.getInstance();
@@ -43,7 +43,7 @@ public class ReparacionControlador {
         }
 
         for(String val : repuestosStr){
-            repuestos.add(repuestoControlador.buscarRepuesto(val, marcaRep));
+            repuestos.add(repuestoControlador.buscarRepuesto(val));
         }
 
         v.agregarReparación(descripcion, costo, fechaIngreso, fechaDevolucion, repuestos, lavado, entregaRapida);

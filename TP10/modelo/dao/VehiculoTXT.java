@@ -12,7 +12,7 @@ public class VehiculoTXT {
     private static ClienteControlador clienteControlador= new ClienteControlador();
     private static final String ARCHIVO_VEHICULOS = "vehiculos.txt";
     private static SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
-    
+    private static final String ARCHIVO_REPARCIONES = "reparaciones.txt";
     public static ArrayList<Vehiculo> leerVehiculos() throws FileNotFoundException, ParseException {
         ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
         File archivoVehiculos = new File(ARCHIVO_VEHICULOS);

@@ -1,5 +1,7 @@
 package vista;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controlador.*;
 
@@ -8,7 +10,7 @@ import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class IngresoVista extends JPanel implements ActionListener {
+public class IngresoVista extends JPanel implements ActionListener, ListSelectionListener {
 
     private JTextField txtFecha, txtDescripcion, txtCosto;
     private JButton btnGuardar, btnCancelar;
@@ -16,6 +18,7 @@ public class IngresoVista extends JPanel implements ActionListener {
     private JComboBox<String> comboVehiculos = new JComboBox<>();
     private JPanel pnlRepuestos;
     private JTextArea leyenda;
+    private DefaultListModel<String> modeloListaRepuestosSeleccionados, modeloListaRepuestos;
     private JList<String> listaRepuesto, listaRepuestosSeleccionados;
     private JRadioButton rbMantenimiento, rbReparacion;    
     private JCheckBox chkLavado, chkEntregaRapida;
@@ -57,11 +60,19 @@ public class IngresoVista extends JPanel implements ActionListener {
         add(new JLabel("Descripción:"));
         add(txtDescripcion);
 
-        DefaultListModel<String> listModel = new DefaultListModel<>();
+        modeloListaRepuestos = new DefaultListModel<>();
         for (String s : repuestosControlador.getNombresRepuestos()) {
-            listModel.addElement(s);
+            modeloListaRepuestos.addElement(s);
         }
 
+        listaRepuesto = new JList<>(modeloListaRepuestos);
+        listaRepuesto.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); 
+        listaRepuesto.addListSelectionListener((ListSelectionListener) this);
+        add( new JScrollPane(listaRepuesto) );
+
+        modeloListaRepuestosSeleccionados = new DefaultListModel<>();
+        listaRepuestosSeleccionados = new JList<>(modeloListaRepuestosSeleccionados);
+        add( new JScrollPane(listaRepuestosSeleccionados) );
 
         JPanel panelOpciones = new JPanel();
         rbMantenimiento = new JRadioButton("Mantenimiento");
@@ -84,6 +95,15 @@ public class IngresoVista extends JPanel implements ActionListener {
         btnGuardar = new JButton("Guardar");
         btnCancelar = new JButton("Cancelar");
 
+        leyenda = new JTextArea(5, 30);
+        leyenda.setText("En esta pantalla puede registrar reparaciones y mantenimientos\n"
+                + "Seleccione un cliente, luego un vehículo, y agregue los repuestos seleccionados.\n"
+                + "Complete los datos solicitados y presione 'Guardar' para registrar la reparación.");
+        leyenda.setEditable(false);
+        leyenda.setLineWrap(true); 
+        leyenda.setWrapStyleWord(true); 
+        add(leyenda);
+
         add(btnGuardar);
         add(btnCancelar);
         btnGuardar.addActionListener(this);
@@ -96,13 +116,17 @@ public class IngresoVista extends JPanel implements ActionListener {
             String patente = (String) comboVehiculos.getSelectedItem();
             String fecha = txtFecha.getText();
             String descripcion = txtDescripcion.getText();
+            ArrayList<String> repuestosSeleccionados = new ArrayList<>();
+            for (int i = 0; i < modeloListaRepuestosSeleccionados.size(); i++) {
+                repuestosSeleccionados.add(modeloListaRepuestosSeleccionados.getElementAt(i));
+            }
 
             boolean lavado = chkLavado.isSelected();
             boolean entregaRapida = chkEntregaRapida.isSelected();       
             double costo = Double.parseDouble(txtCosto.getText());
 
 
-            int resp = reparacionControlador.registrarReparacion(patente, descripcion, fecha, repuestosSeleccionados, descripcion, lavado, entregaRapida, costo);
+            int resp = reparacionControlador.registrarReparacion(patente, descripcion, fecha, repuestosSeleccionados, lavado, entregaRapida, costo);
             if(resp == -1){
                 JOptionPane.showMessageDialog(this, "Esta reparacion ya existe", "Error", JOptionPane.ERROR_MESSAGE);
                 try {
@@ -123,23 +147,20 @@ public class IngresoVista extends JPanel implements ActionListener {
                 comboVehiculos.addItem(patente);
             }
         }
-
-
-
     }
 
-    private void actualizarListaRepuestos() {
-        String marcaSeleccionada = listaMarcasRepuestos.getSelectedValue();
-        if (marcaSeleccionada != null) {
-            DefaultListModel<String> repuestosModel = new DefaultListModel<>();
-            for (String repuesto : repuestosControlador.getRepuestosPorMarca(marcaSeleccionada)) {
-                repuestosModel.addElement(repuesto);
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) {
+            modeloListaRepuestosSeleccionados.clear();
+            for (String repuesto : listaRepuesto.getSelectedValuesList()) {
+                modeloListaRepuestosSeleccionados.addElement(repuesto);
             }
-            listaRepuestos.setModel(repuestosModel);
         }
     }
 
     private void limpiarCampos() {
+        listaRepuesto.clearSelection();
         comboCliente.setSelectedItem(null);
         comboVehiculos.setSelectedItem(null);
         txtFecha.setText("");

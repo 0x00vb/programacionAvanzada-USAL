@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 import modelo.*;
+import modelo.dao.EstadisticasJSON;
 
 public class EstadisticaControlador {
     private VehiculoControlador vehiculoControlador;
@@ -43,15 +44,17 @@ public class EstadisticaControlador {
 
 
     public String estadistica2(){
+        String resp = "";
+        Calendar fecha = Calendar.getInstance();
         for(Vehiculo v : vehiculoControlador.getVehiculos()){
             for(Reparacion r : v.getReparaciones()){
                 if(r.getCodigoReparacion() != arg && r.getCosto() != arg){
-                    return "" + v.getPatente() + " " + v.getMarca() + " " + v.getModelo() + " " + v.getAño();
+                    resp =  "" + v.getPatente() + " " + v.getMarca() + " " + v.getModelo() + " " + v.getAño();
                 }
             }
         }
-
-        return "";
+        EstadisticasJSON.escribirJson(resp, fecha);
+        return resp;
     }
 
     public int estadistica3(){

@@ -1,0 +1,8 @@
+Filtro de aceite    10001 0150.00ACME         
+Pastillas de freno  10002 0125.50Brembo       
+Bujías              10003 0025.75NGK          
+Amortiguadores      10004 0450.30Monroe       
+Correa de distribuc 10005 0300.20Gates         
+Radiador            10006 0550.00Denso         
+Batería             10007 0200.50Bosch         
+Aceite sintético    10008 0090.00Mobil1        

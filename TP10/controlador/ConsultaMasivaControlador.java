@@ -7,17 +7,16 @@ import modelo.*;
 
 public class ConsultaMasivaControlador {
     private ConsultaMasivaVista vista;
-    private VehiculoControlador vehiculoControlador = new VehiculoControlador();
-    private ArrayList<Vehiculo> vehiculos = vehiculoControlador.getVehiculos();
+    private VehiculoControlador vehiculoControlador;
+    private ArrayList<Vehiculo> vehiculos;
 
     public ConsultaMasivaControlador(ConsultaMasivaVista vista){
         this.vista = vista;
-        // this.vista.getBtn().addActionListener(new ActionListener() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         buscarReparaciones();
-        //     }
-        // });
+        vehiculoControlador = new VehiculoControlador();
+        this.vehiculos = vehiculoControlador.getVehiculos();
+        if (this.vehiculos == null) {
+            this.vehiculos = new ArrayList<>();
+        }
     }
 
     public void buscarReparaciones(){

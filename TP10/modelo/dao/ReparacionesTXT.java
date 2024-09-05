@@ -4,6 +4,7 @@ import java.util.*;
 import modelo.*;
 import java.text.SimpleDateFormat;
 
+
 public class ReparacionesTXT {
     private static final String ARCHIVO_REPARACIONES = "reparaciones.txt";
     private static final String ARCHIVO_TEMPORAL = "reparaciones_temp.txt";
@@ -90,7 +91,7 @@ public class ReparacionesTXT {
         if (!archivoTemporal.renameTo(archivoOriginal)) {
             throw new IOException("No se pudo renombrar el archivo temporal.");
         }
-
-
     }
+
+
 }
