@@ -31,14 +31,10 @@ public class IngresoVista extends JPanel implements ActionListener, ListSelectio
         setSize(300, 200);
         setLayout(new FlowLayout());
 
-        try {
-            repuestosControlador = new RepuestosControlador();
-            reparacionControlador = new ReparacionControlador();    
-            clienteControlador = new ClienteControlador();
-            vehiculoControlador = new VehiculoControlador(); 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        repuestosControlador = new RepuestosControlador();
+        reparacionControlador = new ReparacionControlador();    
+        clienteControlador = new ClienteControlador();
+        vehiculoControlador = new VehiculoControlador();
 
         
         txtFecha = new JTextField(20);

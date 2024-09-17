@@ -1,0 +1,1 @@
+1;ABC123;Toyota;Corolla;2015;A;4;Gasolina;15/05/2020

@@ -15,11 +15,7 @@ public class EstadisticaControlador {
     private int arg;
 
     public EstadisticaControlador(){
-        try {
-            this.repuestoControlador = new RepuestosControlador();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        this.repuestoControlador = new RepuestosControlador();
         this.vehiculoControlador = new VehiculoControlador();
         this.reparacionControlador = new ReparacionControlador();
     }

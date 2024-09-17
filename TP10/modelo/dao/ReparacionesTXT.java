@@ -1,6 +1,9 @@
 package modelo.dao;
 import java.io.*;
 import java.util.*;
+
+import controlador.RepuestosControlador;
+import controlador.VehiculoControlador;
 import modelo.*;
 import java.text.SimpleDateFormat;
 
@@ -8,6 +11,59 @@ import java.text.SimpleDateFormat;
 public class ReparacionesTXT {
     private static final String ARCHIVO_REPARACIONES = "reparaciones.txt";
     private static final String ARCHIVO_TEMPORAL = "reparaciones_temp.txt";
+      
+
+    public static ArrayList<Reparacion> leerReparaciones() {
+        ArrayList<Reparacion> reparaciones = new ArrayList<>();
+        File archivo = new File(ARCHIVO_REPARACIONES);
+
+        if (!archivo.exists()) {
+            try {
+                throw new FileNotFoundException("El archivo de reparaciones no existe.");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+
+            while ((linea = bufferedReader.readLine()) != null) {
+                String[] partes = linea.split(";");
+
+                String patente = partes[0]; // We can choose to store or discard the patente
+                Vehiculo vehiculo = new VehiculoControlador().buscarVehiculo(patente);
+                System.out.println(vehiculo.getAño());
+                
+                int codigoReparacion = Integer.parseInt(partes[1]);
+                String tipoReparacion = partes[2];
+                double costo = Double.parseDouble(partes[3]);
+
+                Calendar fechaIngreso = Calendar.getInstance();
+                Calendar fechaEntrega = Calendar.getInstance();
+                fechaIngreso.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(partes[4]));
+                fechaEntrega.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(partes[5]));
+
+                boolean lavado = Boolean.parseBoolean(partes[6]);
+                boolean entregaRapida = Boolean.parseBoolean(partes[7]);
+
+                String[] repuestosCodigos = partes[8].split(",");
+                ArrayList<Repuesto> repuestos = new ArrayList<>();
+                for (String codigoRepuesto : repuestosCodigos) {
+                    if (!codigoRepuesto.isEmpty()) {
+                        repuestos.add(new RepuestosControlador().buscarRepuesto(codigoRepuesto));
+                    }
+                }
+
+                Reparacion reparacion = new Reparacion(codigoReparacion, tipoReparacion, costo, fechaIngreso, fechaEntrega, repuestos, lavado, entregaRapida);
+                reparaciones.add(reparacion);
+                vehiculo.agregarReparación(tipoReparacion, costo, fechaIngreso, fechaEntrega, repuestos, lavado, entregaRapida);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reparaciones;
+    }
 
     public static void eliminarReparacion(int codigoReparacion) throws IOException {
         File archivoOriginal = new File(ARCHIVO_REPARACIONES);

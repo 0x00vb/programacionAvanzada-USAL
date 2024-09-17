@@ -37,12 +37,36 @@ public class ConsultaMasivaVista extends JPanel{
         add(panelAbajo, BorderLayout.SOUTH);
 
     }
+    
+    public void actualizarCampo(String codigoReparacion, int column, Object newValue) {
+        consultaMasivaControlador.actualizarCampo(codigoReparacion, column, newValue);
+    }
+    
 
     public String getFiltroMarca(){ return txtFiltroMarca.getText(); }
     public String getFiltroPatente(){ return txtFiltroPatente.getText(); }
     public JButton getBtn(){ return btn; }
     public void setDataTabla(Object[][] data, String[] columnas){
-        tabla.setModel( new DefaultTableModel(data, new String[]{"Patente", "Marca", "Modelo", "codigo Reparacion", "descripcion", "costo", "repuestos"}) ); 
+        DefaultTableModel model = new DefaultTableModel(data, new String[]{"Patente", "Marca", "Modelo", "codigo Reparacion", "descripcion", "costo", "repuestos"}){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column != 3;
+            }
+        };
+        
+        tabla.setModel( model ); 
+
+        model.addTableModelListener(e -> {
+            int row = e.getFirstRow();
+            int column = e.getColumn();
+            
+            if (column != 3) { 
+                Object newValue = model.getValueAt(row, column);
+                String codigoReparacion = model.getValueAt(row, 3).toString();
+                actualizarCampo(codigoReparacion, column, newValue);
+            }
+        });
+        
     }
     public void setTotalRegistros( int totalRegistros ){ this.totalRegistros.setText("Total de registros: " + totalRegistros); }
 }

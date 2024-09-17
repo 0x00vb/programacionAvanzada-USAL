@@ -3,9 +3,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import modelo.*;
+import modelo.dao.VehiculoTXT;
 
 public class VehiculoControlador {
-    private ArrayList<Vehiculo> vehiculos = null;
+    private ArrayList<Vehiculo> vehiculos = VehiculoTXT.leerVehiculos();
     private int arg;
     
     public VehiculoControlador(){}
@@ -35,5 +36,4 @@ public class VehiculoControlador {
     }
 
     public ArrayList<Vehiculo> getVehiculos(){ return vehiculos; }
-
 }

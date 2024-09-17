@@ -13,7 +13,7 @@ public class VehiculoTXT {
     private static final String ARCHIVO_VEHICULOS = "vehiculos.txt";
     private static SimpleDateFormat dateF = new SimpleDateFormat("dd/MM/yyyy");
     private static final String ARCHIVO_REPARCIONES = "reparaciones.txt";
-    public static ArrayList<Vehiculo> leerVehiculos() throws FileNotFoundException, ParseException {
+    public static ArrayList<Vehiculo> leerVehiculos() {
         ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
         File archivoVehiculos = new File(ARCHIVO_VEHICULOS);
 
@@ -23,6 +23,10 @@ public class VehiculoTXT {
                 Vehiculo vehiculo = parsearLineaAVehiculo(linea);
                 listaVehiculos.add(vehiculo);
             }
+        }catch(FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         return listaVehiculos;

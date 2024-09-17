@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class RepuestosTXT {
-    public static ArrayList<Repuesto> leerRepuestos() throws FileNotFoundException {
+    public static ArrayList<Repuesto> leerRepuestos() {
         ArrayList<Repuesto> repuestos = new ArrayList<>();
         File archivo = new File("repuestos.txt");
 
@@ -23,6 +23,8 @@ public class RepuestosTXT {
                 Repuesto repuesto = new Repuesto(nombre, codigo, costo, marca);
                 repuestos.add(repuesto);
             }
+        }catch(FileNotFoundException e){
+            System.out.println("Error al leer el archivo de repuestos");
         }
 
         return repuestos;

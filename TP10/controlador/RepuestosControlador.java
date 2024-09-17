@@ -9,7 +9,7 @@ import modelo.dao.RepuestosTXT;
 public class RepuestosControlador {
     private ArrayList<Repuesto> repuestos = RepuestosTXT.leerRepuestos();
 
-    public RepuestosControlador() throws FileNotFoundException {
+    public RepuestosControlador() {
         this.repuestos = RepuestosTXT.leerRepuestos();
     }
 
@@ -22,6 +22,16 @@ public class RepuestosControlador {
         }
         return lista;
     }
+
+    public Repuesto buscarRepuesto(int cod){
+        for(Repuesto r : repuestos){
+            if(r.getCodigo() == cod){
+                return r;
+            }
+        }
+        return null;
+    }
+
 
     public Repuesto buscarRepuesto(String nombre){
         for(Repuesto r : repuestos){

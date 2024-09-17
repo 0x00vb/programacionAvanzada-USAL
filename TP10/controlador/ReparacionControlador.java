@@ -7,19 +7,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import modelo.*;
+import modelo.dao.ReparacionesTXT;
 
 public class ReparacionControlador {
-    private ArrayList<Reparacion> reparaciones = null;
+    private ArrayList<Reparacion> reparaciones = ReparacionesTXT.leerReparaciones();
     private VehiculoControlador vehiculoControlador = new VehiculoControlador();
     private RepuestosControlador repuestoControlador;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     public ReparacionControlador() {
-        try {
-            repuestoControlador = new RepuestosControlador();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("Error initializing RepuestosControlador", e);
-        }
+        repuestoControlador = new RepuestosControlador();
     }
 
     public int registrarReparacion(String patente, String descripcion, String fechaDevolucionStr, ArrayList<String> repuestosStr, boolean lavado, boolean entregaRapida, double costo){
