@@ -1,12 +1,13 @@
 package controlador;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import modelo.*;
+import modelo.dao.ReparacionesSQL;
 import modelo.dao.ReparacionesTXT;
 
 public class ReparacionControlador {
@@ -14,6 +15,7 @@ public class ReparacionControlador {
     private VehiculoControlador vehiculoControlador = new VehiculoControlador();
     private RepuestosControlador repuestoControlador;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private ReparacionesSQL reparacionesSQL = new ReparacionesSQL();
 
     public ReparacionControlador() {
         repuestoControlador = new RepuestosControlador();
@@ -60,6 +62,12 @@ public class ReparacionControlador {
         Reparacion reparacionAEliminar = buscarReparacion(codigo);
         if (reparacionAEliminar != null) {
             reparaciones.remove(reparacionAEliminar);
+            try {
+                ReparacionesTXT.eliminarReparacion(codigo);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            reparacionesSQL.eliminarReparacion(codigo);
         }
     }
     public ArrayList<Reparacion> getReparaciones(){

@@ -1,5 +1,8 @@
 package vista;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,10 +39,17 @@ public class ConsultaMasivaVista extends JPanel{
         panelAbajo.add(totalRegistros);
         add(panelAbajo, BorderLayout.SOUTH);
 
+        btn.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                consultaMasivaControlador.buscarReparaciones();
+            }
+        } );
+
     }
     
-    public void actualizarCampo(String codigoReparacion, int column, Object newValue) {
-        consultaMasivaControlador.actualizarCampo(codigoReparacion, column, newValue);
+    public void actualizarCampo(String codigoReparacion, String patente, int column, Object newValue) {
+        consultaMasivaControlador.actualizarCampo(codigoReparacion, patente, column, newValue);
     }
     
 
@@ -63,7 +73,8 @@ public class ConsultaMasivaVista extends JPanel{
             if (column != 3) { 
                 Object newValue = model.getValueAt(row, column);
                 String codigoReparacion = model.getValueAt(row, 3).toString();
-                actualizarCampo(codigoReparacion, column, newValue);
+                String patente = model.getValueAt(row, 0).toString();
+                actualizarCampo(codigoReparacion, patente, column, newValue);
             }
         });
         

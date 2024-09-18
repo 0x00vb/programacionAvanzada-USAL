@@ -31,7 +31,7 @@ public class ReparacionesTXT {
             while ((linea = bufferedReader.readLine()) != null) {
                 String[] partes = linea.split(";");
 
-                String patente = partes[0]; // We can choose to store or discard the patente
+                String patente = partes[0];
                 Vehiculo vehiculo = new VehiculoControlador().buscarVehiculo(patente);
                 System.out.println(vehiculo.getAño());
                 
@@ -51,7 +51,7 @@ public class ReparacionesTXT {
                 ArrayList<Repuesto> repuestos = new ArrayList<>();
                 for (String codigoRepuesto : repuestosCodigos) {
                     if (!codigoRepuesto.isEmpty()) {
-                        repuestos.add(new RepuestosControlador().buscarRepuesto(codigoRepuesto));
+                        repuestos.add(new RepuestosControlador().buscarRepuesto(Integer.parseInt(codigoRepuesto)));
                     }
                 }
 
@@ -108,7 +108,7 @@ public class ReparacionesTXT {
         printWriter.println(linea);
     }
 
-    public void modificarReparacion(Reparacion reparacion, String patente) throws IOException {
+    public static void modificarReparacion(Reparacion reparacion, String patente) throws IOException {
         File archivoOriginal = new File(ARCHIVO_REPARACIONES);
         File archivoTemporal = new File(ARCHIVO_TEMPORAL);
 
@@ -119,7 +119,9 @@ public class ReparacionesTXT {
             int codigoReparacion = reparacion.getCodigoReparacion();
             String repuestos = "";
             for (Repuesto repuesto : reparacion.getRepuestos()) {
-                repuestos += repuesto.getCodigo() + ",";
+                if(repuesto != null) {
+                    repuestos += repuesto.getCodigo() + ",";
+                }
             }
 
             String nuevaLinea = patente + ";" + codigoReparacion + ";" + reparacion.getTipoReparacion() + ";" +

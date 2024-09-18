@@ -1,8 +1,11 @@
 package controlador;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.*;
 import vista.*;
 import modelo.*;
+import modelo.dao.ReparacionesSQL;
+import modelo.dao.ReparacionesTXT;
 
 public class ConsultaMasivaControlador {
     private ConsultaMasivaVista vista;
@@ -22,26 +25,32 @@ public class ConsultaMasivaControlador {
         }
     }
 
-    public void buscarReparaciones(){
+    public void buscarReparaciones() {
         String filtroMarca = vista.getFiltroMarca();
         String filtroPatente = vista.getFiltroPatente();
         List<Object[]> data = new ArrayList<>();
-
-        for( Vehiculo vehiculo : vehiculos ){
-            if(coincideConFiltros(vehiculo, filtroMarca, filtroPatente)){
-                for(Reparacion reparacion : vehiculo.getReparaciones()){
-                    crearFilaReparacion(vehiculo, reparacion);
+    
+        for (Vehiculo vehiculo : vehiculos) {
+            if (filtroMarca.isEmpty() && filtroPatente.isEmpty()) {
+                for (Reparacion reparacion : vehiculo.getReparaciones()) {
+                    System.out.println(vehiculo.getPatente());
+                    data.add(crearFilaReparacion(vehiculo, reparacion));
+                }
+            } else if (coincideConFiltros(vehiculo, filtroMarca, filtroPatente)) {
+                for (Reparacion reparacion : vehiculo.getReparaciones()) {
+                    data.add(crearFilaReparacion(vehiculo, reparacion));
                 }
             }
         }
-
+    
         data.sort(Comparator.comparingInt(o -> Integer.parseInt(o[3].toString())));
-
+    
         Object[][] dataArray = data.toArray(new Object[0][]);
+    
         vista.setDataTabla(dataArray, new String[]{"Patente", "Marca", "Modelo", "Código Reparación", "Descripción", "Costo", "Repuestos"});
         vista.setTotalRegistros(dataArray.length);
     }
-
+    
     private boolean coincideConFiltros(Vehiculo vehiculo, String filtroMarca, String filtroPatente) {
         return (filtroMarca.isEmpty() || vehiculo.getMarca().contains(filtroMarca))
             && (filtroPatente.isEmpty() || vehiculo.getPatente().contains(filtroPatente));
@@ -59,8 +68,9 @@ public class ConsultaMasivaControlador {
         };
     }
 
-    public void actualizarCampo(String codigoReparacion, int column, Object newValue){
+    public void actualizarCampo(String codigoReparacion, String patente, int column, Object newValue){
         Reparacion reparacion = reparacionControlador.buscarReparacion(Integer.parseInt(codigoReparacion));
+
         if (reparacion != null) {
             switch (column) {
                 case 4: // Descripción (Tipo de Reparación)
@@ -75,6 +85,12 @@ public class ConsultaMasivaControlador {
                     break;
             }
         }
+        try {
+            ReparacionesTXT.modificarReparacion(reparacion, patente);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //new ReparacionesSQL().modificarReparacion(reparacion, patente);
     }
 
     public ArrayList<Repuesto> parseRepuestos(String repuestosString) {

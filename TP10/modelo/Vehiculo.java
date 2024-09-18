@@ -17,6 +17,7 @@ public abstract class Vehiculo {
     }
     
     public Vehiculo( String patente, String marca, String modelo, int año, Cliente cliente, Calendar fechaCarga ) {
+        this();
         this.patente = patente;
         this.marca = marca;
         this.modelo = modelo;
@@ -43,7 +44,9 @@ public abstract class Vehiculo {
     public void agregarReparación(String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos, boolean lavado, boolean entregaRapida) {
         this.reparaciones.add( new Reparacion(tipoReparacion, costo, fechaIngreso, fechaEntrega, repuestos, lavado, entregaRapida) );
     }
-    
+    public void agregarReparación(int cod, String tipoReparacion, double costo, Calendar fechaIngreso, Calendar fechaEntrega, ArrayList<Repuesto> repuestos, boolean lavado, boolean entregaRapida) {
+        this.reparaciones.add( new Reparacion(cod, tipoReparacion, costo, fechaIngreso, fechaEntrega, repuestos, lavado, entregaRapida) );
+    }
     public Calendar getFechaCarga() {
         return this.fechaCarga;
     }

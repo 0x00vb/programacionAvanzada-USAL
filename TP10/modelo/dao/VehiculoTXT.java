@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import controlador.ClienteControlador;
-import modelo.Vehiculo;
+import controlador.RepuestosControlador;
 
 public class VehiculoTXT {
     private static ClienteControlador clienteControlador= new ClienteControlador();
@@ -21,6 +21,34 @@ public class VehiculoTXT {
             while (scanner.hasNextLine()) {
                 String linea = scanner.nextLine();
                 Vehiculo vehiculo = parsearLineaAVehiculo(linea);
+
+                File archivoReparaciones = new File(ARCHIVO_REPARCIONES);
+                Scanner reparacionesScanner = new Scanner(archivoReparaciones);
+
+                while(reparacionesScanner.hasNextLine()) {
+                    String reparacionLinea = reparacionesScanner.nextLine();
+                    String[] reparacionPartes = reparacionLinea.split(";");
+                    String patente = reparacionPartes[0];
+                    if(patente.equals(vehiculo.getPatente())){
+                        Calendar fechaIngreso = Calendar.getInstance();
+                        Calendar fechaEgreso = Calendar.getInstance();
+                        int cod = Integer.parseInt(reparacionPartes[1]);
+                        String descripcion = reparacionPartes[2];
+                        double costo = Double.parseDouble(reparacionPartes[3]);
+                        fechaIngreso.setTime(dateF.parse(reparacionPartes[4]));
+                        fechaEgreso.setTime(dateF.parse(reparacionPartes[5]));
+                        boolean lavado = Boolean.parseBoolean(reparacionPartes[6]);
+                        boolean entregaRapida = Boolean.parseBoolean(reparacionPartes[7]);
+                        ArrayList<Repuesto> repuestos = new ArrayList<>();
+                        if (!reparacionPartes[8].isEmpty()) {
+                            String[] repuestoCodes = reparacionPartes[8].split(",");
+                            for (String code : repuestoCodes) {
+                                repuestos.add( new RepuestosControlador().buscarRepuesto(Integer.parseInt(code)) );
+                            }
+                        }
+                        vehiculo.agregarReparación(cod, descripcion, costo, fechaIngreso, fechaEgreso, repuestos, lavado, entregaRapida);
+                    }
+                }
                 listaVehiculos.add(vehiculo);
             }
         }catch(FileNotFoundException e) {
