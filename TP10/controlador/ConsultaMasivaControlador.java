@@ -90,7 +90,7 @@ public class ConsultaMasivaControlador {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //new ReparacionesSQL().modificarReparacion(reparacion, patente);
+        new ReparacionesSQL().modificarReparacion(reparacion, patente);
     }
 
     public ArrayList<Repuesto> parseRepuestos(String repuestosString) {

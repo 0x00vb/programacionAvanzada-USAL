@@ -1,1 +1,1 @@
-ABC123;1;Cambio de aceite;150.0;15/08/2023;20/08/2023;true;false;10001,10008,
+ABC123;1;Cambio de aceite;150.99;15/08/2023;20/08/2023;false;false;10001,10008,

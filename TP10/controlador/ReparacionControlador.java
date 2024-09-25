@@ -6,9 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import java.sql.SQLException;
+
 import modelo.*;
 import modelo.dao.ReparacionesSQL;
 import modelo.dao.ReparacionesTXT;
+import vista.Pantalla;
 
 public class ReparacionControlador {
     private ArrayList<Reparacion> reparaciones = ReparacionesTXT.leerReparaciones();
@@ -58,16 +61,30 @@ public class ReparacionControlador {
         return null;
     }
 
+    public Reparacion buscarReparacion(int codReparacion, String patente){
+        for(Vehiculo v : vehiculoControlador.getVehiculos()){
+            if(v.getPatente().equals(patente)){
+                for(Reparacion r : v.getReparaciones()){
+                    if(r.getCodigoReparacion() == codReparacion){
+                        return r;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public void eliminarReparacion(int codigo) {
         Reparacion reparacionAEliminar = buscarReparacion(codigo);
         if (reparacionAEliminar != null) {
             reparaciones.remove(reparacionAEliminar);
             try {
                 ReparacionesTXT.eliminarReparacion(codigo);
+                //reparacionesSQL.eliminarReparacion(codigo);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            reparacionesSQL.eliminarReparacion(codigo);
+
         }
     }
     public ArrayList<Reparacion> getReparaciones(){

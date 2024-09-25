@@ -30,10 +30,6 @@ public class ReparacionesTXT {
 
             while ((linea = bufferedReader.readLine()) != null) {
                 String[] partes = linea.split(";");
-
-                String patente = partes[0];
-                Vehiculo vehiculo = new VehiculoControlador().buscarVehiculo(patente);
-                System.out.println(vehiculo.getAño());
                 
                 int codigoReparacion = Integer.parseInt(partes[1]);
                 String tipoReparacion = partes[2];
@@ -57,7 +53,6 @@ public class ReparacionesTXT {
 
                 Reparacion reparacion = new Reparacion(codigoReparacion, tipoReparacion, costo, fechaIngreso, fechaEntrega, repuestos, lavado, entregaRapida);
                 reparaciones.add(reparacion);
-                vehiculo.agregarReparación(tipoReparacion, costo, fechaIngreso, fechaEntrega, repuestos, lavado, entregaRapida);
             }
         } catch (Exception e) {
             e.printStackTrace();

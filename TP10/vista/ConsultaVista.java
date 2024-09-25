@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ConsultaVista extends JPanel {
-    private JTextField txtCod, txtTipoReparacion, txtCosto, txtFechaIngreso, txtFechaEntrega;
+    private JTextField txtCod, txtPatente, txtTipoReparacion, txtCosto, txtFechaIngreso, txtFechaEntrega;
     private JCheckBox chkLavado, chkEntregaRapida;
     private JButton btnBuscar, btnEditar, btnAnular, btnAceptar, btnCancelar;
     
@@ -18,6 +18,10 @@ public class ConsultaVista extends JPanel {
         setSize(300, 200);
         setLayout(new FlowLayout());
     
+        txtPatente = new JTextField(20);
+        add(new JLabel("Patente:"));
+        add(txtPatente);
+
         txtCod = new JTextField(20);
         add(new JLabel("Código:"));
         add(txtCod);
@@ -67,7 +71,7 @@ public class ConsultaVista extends JPanel {
 
         btnCancelar = new JButton("Cancelar");
         btnCancelar.setEnabled(false);
-        btnCancelar.addActionListener(e -> consultaControlador.guardarCambios());
+        btnCancelar.addActionListener(e -> consultaControlador.cancelarEdicion());
         add(btnCancelar);
 
         btnAnular = new JButton("Anular");
@@ -78,14 +82,15 @@ public class ConsultaVista extends JPanel {
     }
 
     public JTextField getTxtCod() { return txtCod; }
+    public JTextField getTxtPatente() { return txtPatente; }
     public JTextField getTxtTipoReparacion() { return txtTipoReparacion; }
     public JTextField getTxtCosto() { return txtCosto; }
     public JTextField getTxtFechaEntrega() { return txtFechaEntrega; }
     public JTextField getTxtFechaIngreso() { return txtFechaIngreso; }
     public JCheckBox getChkLavado() { return chkLavado; }
     public JCheckBox getChkEntregaRapida() { return chkEntregaRapida; }
-    public JButton getBtnAceptar() { return btnEditar; }
-    public JButton getBtnCancelar() { return btnAceptar; }
-    public JButton getBtnEditar() { return btnCancelar; }
+    public JButton getBtnAceptar() { return btnAceptar; }
+    public JButton getBtnCancelar() { return btnCancelar; }
+    public JButton getBtnEditar() { return btnEditar; }
     public JButton getBtnAnular() { return btnAnular; }
 }

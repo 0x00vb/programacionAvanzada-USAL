@@ -60,7 +60,7 @@ public class ConsultaMasivaVista extends JPanel{
         DefaultTableModel model = new DefaultTableModel(data, new String[]{"Patente", "Marca", "Modelo", "codigo Reparacion", "descripcion", "costo", "repuestos"}){
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column != 3;
+                return column != 0 && column != 1 && column != 2 && column != 3;
             }
         };
         

@@ -1,14 +1,63 @@
 package modelo.dao;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
+import controlador.RepuestosControlador;
 import modelo.*;
 
 public class ReparacionesSQL {
     private ConexionSQL conexionDB = new ConexionSQL();
     private Connection conn = conexionDB.Conexion();
+    private static RepuestosControlador repuestosControlador = new RepuestosControlador();
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    public ArrayList<Reparacion> leerReparaciones(){
+        ArrayList<Reparacion> reparaciones = new ArrayList<>();
+        try{
+            Statement instruccion = conn.createStatement();
+            ResultSet resultado = instruccion.executeQuery("SELECT * FROM Reparaciones");
+            while (resultado.next()) {
+                int codigoReparacion = resultado.getInt("codigoReparacion");
+                String tipoReparacion = resultado.getString("descripcion");
+                double costo = resultado.getDouble("costo");
+
+                Calendar fechaIngreso = Calendar.getInstance();
+                Calendar fechaEntrega = Calendar.getInstance();
+                fechaIngreso.setTime(dateFormat.parse(resultado.getString("fechaIngreso")));
+                fechaEntrega.setTime(dateFormat.parse(resultado.getString("fechaEgreso")));
+
+                boolean lavado = resultado.getBoolean("lavado");
+                boolean entregaRapida = resultado.getBoolean("entregaRapida");
+
+                // Retrieve the spare parts related to this reparacion (assuming it's a comma-separated string of repuesto IDs)
+                ArrayList<Repuesto> repuestos = new ArrayList<>();
+                String repuestosCodigos = resultado.getString("repuestos");
+
+                if (!repuestosCodigos.isEmpty()) {
+                    String[] repuestoIds = repuestosCodigos.split(",");
+                    for (String codigoRepuesto : repuestoIds) {
+                        if (!codigoRepuesto.trim().isEmpty()) {
+                            Repuesto repuesto = repuestosControlador.buscarRepuesto(Integer.parseInt(codigoRepuesto.trim()));
+                            repuestos.add(repuesto);
+                        }
+                    }
+                }
+
+                // Create and add the reparacion object
+                Reparacion reparacion = new Reparacion(codigoReparacion, tipoReparacion, costo, fechaIngreso, fechaEntrega, repuestos, lavado, entregaRapida);
+                reparaciones.add(reparacion);
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return reparaciones;
+    }
+
 
     public void ingresarReparacion(Reparacion reparacion, String patente){
         try{

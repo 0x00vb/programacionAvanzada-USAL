@@ -1,5 +1,6 @@
 package controlador;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,9 +8,12 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 import modelo.*;
+import modelo.dao.ReparacionesSQL;
+import modelo.dao.ReparacionesTXT;
 import vista.*;
 
 public class ConsultaControlador {
+    private ReparacionesSQL reparacionesSQL = new ReparacionesSQL();
     private ConsultaVista vista;
     private ReparacionControlador reparacionControlador;
     private Reparacion reparacionActual;
@@ -22,9 +26,10 @@ public class ConsultaControlador {
     public void buscarReparacion() {
         try {
             String codigoStr = vista.getTxtCod().getText();
+            String patente = vista.getTxtPatente().getText();
             int codigo = Integer.parseInt(codigoStr);
 
-            Reparacion reparacion = reparacionControlador.buscarReparacion(codigo);
+            Reparacion reparacion = reparacionControlador.buscarReparacion(codigo, patente);
             
             if (reparacion != null) {
                 reparacionActual = reparacion;
@@ -67,6 +72,7 @@ public class ConsultaControlador {
     }
 
     public void guardarCambios() {
+        String patente = vista.getTxtPatente().getText();
         if (reparacionActual != null) {
             reparacionActual.setTipoReparacion(vista.getTxtTipoReparacion().getText());
             reparacionActual.setCosto(Double.parseDouble(vista.getTxtCosto().getText()));
@@ -80,7 +86,14 @@ public class ConsultaControlador {
                 JOptionPane.showMessageDialog(vista, "Formato de fecha incorrecto. Use dd/MM/yyyy.");
                 return;
             }
+            try {
+                ReparacionesTXT.modificarReparacion(reparacionActual, patente);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            reparacionesSQL.modificarReparacion(reparacionActual, patente);
 
+            cancelarEdicion();
             JOptionPane.showMessageDialog(vista, "Reparación actualizada exitosamente.");
         }
     }
@@ -97,6 +110,7 @@ public class ConsultaControlador {
     }
 
     private void limpiarCampos() {
+        vista.getTxtPatente().setText("");
         vista.getTxtCod().setText("");
         vista.getTxtTipoReparacion().setText("");
         vista.getTxtCosto().setText("");
