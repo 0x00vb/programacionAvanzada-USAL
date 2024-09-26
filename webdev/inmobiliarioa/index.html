@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmobiliaria Los Quiroga</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin: auto;
+            width: 50%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        
+        fieldset{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+        }
+        button {
+        }
+    </style>
+</head>
+<body>
+
+    <h1>INMOBILIARIA LOS QUIROGA</h1>
+
+    <form>
+        <fieldset>
+            <legend>Propiedades a Buscar</legend>
+
+            <label for="localidad">Localidad:</label>
+            <input type="text" id="localidad" name="localidad">
+
+            <label for="provincia">Provincia:</label>
+            <input type="text" id="provincia" name="provincia">
+
+            <div>
+                <label for="operacion">Operación:</label>
+                <select id="operacion" name="operacion">
+                    <option value="compra">Compra</option>
+                    <option value="alquiler">Alquiler</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="inmueble">Inmueble:</label>
+                <select id="inmueble" name="inmueble">
+                    <option value="casa">Casa</option>
+                    <option value="departamento">Departamento</option>
+                    <option value="quinta">Quinta</option>
+                    <option value="cochera">Cochera</option>
+                </select>
+            </div>
+
+            <label for="ambientes">Cantidad de Ambientes:</label>
+            <input type="number" id="ambientes" name="ambientes" min="1">
+
+            <div>
+                <strong>Precio:</strong>
+                <div style="display: flex; flex-direction: column;">
+                    <input type="radio" id="menos10" name="precio" value="menos10">
+                    <label for="menos10">Menos de 10</label>
+        
+                    <input type="radio" id="de100a1000" name="precio" value="de100a1000">
+                    <label for="de100a1000">De 100 a 1000</label>
+        
+                    <input type="radio" id="mas1000" name="precio" value="mas1000">
+                    <label for="mas1000">Más de 1000</label>
+                </div>
+            </div>
+
+            <div>
+                <strong>Comodidades:</strong>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="wifi" name="comodidades" value="wifi">
+                    <label for="wifi">WIFI</label>
+    
+                    <input type="checkbox" id="acepta-mascotas" name="comodidades" value="acepta-mascotas">
+                    <label for="acepta-mascotas">Acepta Mascotas</label>
+    
+                    <input type="checkbox" id="solo-familias" name="comodidades" value="solo-familias">
+                    <label for="solo-familias">Solo Familias</label>
+    
+                    <input type="checkbox" id="cochera" name="comodidades" value="cochera">
+                    <label for="cochera">Cochera</label>
+                </div>
+            </div>
+            <div>
+                <button type="submit">Buscar</button>
+                <button type="reset">Limpiar</button>
+            </div>
+        </fieldset>
+    </form>
+
+</body>
+</html>
